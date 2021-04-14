@@ -5,7 +5,6 @@ import (
 	"github.com/Peterliang233/debate/dao"
 	"github.com/Peterliang233/debate/errmsg"
 	"github.com/Peterliang233/debate/model"
-	"github.com/Peterliang233/debate/router/v1/api/user/login"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/scrypt"
 	"log"
@@ -73,12 +72,12 @@ func CreateUser(data *model.User) (int,int) {
 
 
 //修改用户密码
-func UpdatePassword(data *login.UpdateNewPassword) (int,int) {
+func UpdatePassword(data *model.UpdateNewPassword) (int,int) {
 	if data.NewPassword != data.CheckNewPassword {
 		return http.StatusBadRequest, errmsg.ErrPasswordDifferent
 	}
 	var u model.User
-	if err := dao.Db.Where("phone = ?", data.Phone).First(&u).Error; err != nil {
+	if err := dao.Db.Where("email = ?", data.Email).First(&u).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return http.StatusBadRequest, errmsg.ErrPhoneNotExist
 		}else{
@@ -89,7 +88,7 @@ func UpdatePassword(data *login.UpdateNewPassword) (int,int) {
 		return http.StatusBadRequest, errmsg.ErrPassword
 	}
 	u.Password = ScryptPassword(data.NewPassword)
-	if err := dao.Db.Where("phone = ?", data.Phone).Update("password", u.Password).Error; err != nil {
+	if err := dao.Db.Where("email = ?", data.Email).Update("password", u.Password).Error; err != nil {
 		return http.StatusInternalServerError, errmsg.Error
 	}
 	return http.StatusOK, errmsg.Success
@@ -98,7 +97,7 @@ func UpdatePassword(data *login.UpdateNewPassword) (int,int) {
 //手机+密码登录验证
 func CheckLogin(login *model.Login) (int,int) {
 	var user model.User
-	if err := dao.Db.Where("phone = ?", login.Phone).First(&user).Error; err != nil {
+	if err := dao.Db.Where("email = ?", login.Email).First(&user).Error; err != nil {
 		return http.StatusInternalServerError,errmsg.Error
 	}
 	if ScryptPassword(login.Password) != user.Password {
@@ -131,23 +130,32 @@ func ScryptPassword(password string) string {
 }
 
 
-//检查用户名和电话是否存在
-func CheckUser(username, phone string) (int,int) {
+//检查用户名和邮箱是否存在
+func CheckEmail(email string) (int,int) {
 	var user model.User
+	//检查邮箱是否存在
+	if err := dao.Db.Table("user").Where("email = ?", email).First(&user).Error; err != nil {
+		if err != gorm.ErrRecordNotFound {
+			return http.StatusInternalServerError,errmsg.ErrDatabaseFound
+		}else{
+			return http.StatusOK,errmsg.Success
+		}
+	}else{
+		return http.StatusBadRequest,errmsg.ErrUserEmailUsed
+	}
+}
+
+func CheckUsername(username string) (int,int) {
+	var user model.User
+	//检查邮箱是否存在
 	if err := dao.Db.Table("user").Where("username = ?", username).First(&user).Error; err != nil {
 		if err != gorm.ErrRecordNotFound {
 			return http.StatusInternalServerError,errmsg.ErrDatabaseFound
-		}
-		if err = dao.Db.Table("user").Where("phone = ?", phone).First(&user).Error; err != nil {
-			if err != gorm.ErrRecordNotFound {
-				return http.StatusInternalServerError,errmsg.ErrDatabaseFound
-			}else{
-				return http.StatusOK,errmsg.Success
-			}
 		}else{
-			return http.StatusBadRequest,errmsg.ErrUserEmailUsed
+			return http.StatusOK,errmsg.Success
 		}
 	}else{
 		return http.StatusBadRequest,errmsg.ErrUserNameUsed
 	}
 }
+

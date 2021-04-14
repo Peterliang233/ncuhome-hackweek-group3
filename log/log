@@ -1,0 +1,6 @@
+time="2021-04-14T18:34:13+08:00" level=error Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=POST SpendTime="1762 ms" dataSize=15 ip="::1" path="/v1/verify?email=2107917115@qq.com" status=500
+time="2021-04-14T18:37:01+08:00" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=POST SpendTime="1453 ms" dataSize=16 ip="::1" path="/v1/verify?email=2107917115@qq.com" status=200
+time="2021-04-14T18:37:38+08:00" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=POST SpendTime="458 ms" dataSize=16 ip="::1" path="/v1/verify?email=2824039516@qq.com" status=200
+time="2021-04-14T18:41:28+08:00" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=POST SpendTime="461 ms" dataSize=16 ip="::1" path="/v1/verify?email=haoran.mc@outlook.com" status=200
+Method=POST SpendTime="150 ms" dataSize=192 ip="::1" path=/v1/login status=200
+time="2021-04-14T12:36:03+08:00" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=POST SpendTime="0 ms" dataSize=38 ip="::1" path=/v1/user/pwd status=200

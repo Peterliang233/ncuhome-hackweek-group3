@@ -63,6 +63,7 @@ func InitRouter() *gin.Engine{
 	v1Group := router.Group("/v1")
 	v1Group.POST("/login", login.Login)
 	v1Group.POST("/registry", login.Registry)
+	v1Group.POST("/verify", login.GetEmailCode)  //注册时点击获取邮箱验证码
 	api := v1Group.Group("/user")
 	api.Use(middlerware.JWTAuthMiddleware())
 	{

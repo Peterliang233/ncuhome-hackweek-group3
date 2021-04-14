@@ -26,6 +26,16 @@ type database struct {
 
 var DatabaseSetting = &database{}
 
+
+type email struct {
+	Addr string
+	Username string
+	Password string
+	Host string
+}
+
+var EmailSetting = &email{}
+
 var cfg *ini.File
 
 func init() {
@@ -36,6 +46,7 @@ func init() {
 	}
 	mapTo("server", ServerSetting)
 	mapTo("database", DatabaseSetting)
+	mapTo("email", EmailSetting)
 }
 
 func mapTo(s string, i interface{}){

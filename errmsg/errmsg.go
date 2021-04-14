@@ -28,6 +28,8 @@ const (
 	ErrPassword = 4004
 	ErrPhoneNotExist = 4005
 	ErrPasswordDifferent = 4006
+
+	ErrEmailCode = 5001
 )
 
 var CodeMsg = map[int]string{
@@ -50,4 +52,6 @@ var CodeMsg = map[int]string{
 	ErrPhoneNotExist: "号码不存在",
 	ErrPasswordDifferent: "密码不一致",
 
+
+	ErrEmailCode: "邮箱验证码错误",
 }

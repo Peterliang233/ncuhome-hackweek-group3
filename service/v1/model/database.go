@@ -14,7 +14,7 @@ import (
 func InitDb() {
 	var err error
 	dao.Db, err = gorm.Open(config.DatabaseSetting.Type,
-		fmt.Sprintf( "%s:%s@tcp(%s:%s)/%s?charset=utf8&paeseTime=True&loc=Local",
+		fmt.Sprintf( "%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
 			config.DatabaseSetting.User,
 			config.DatabaseSetting.Password,
 			config.DatabaseSetting.Host,
@@ -27,7 +27,7 @@ func InitDb() {
 
 	dao.Db.SingularTable(true)
 	dao.Db.AutoMigrate(&model.User{})
-	dao.Db.AutoMigrate(&model.Identify{})
+	dao.Db.AutoMigrate(&model.Identity{})
 
 	dao.Db.DB().SetMaxIdleConns(10)
 	dao.Db.DB().SetMaxOpenConns(100)
