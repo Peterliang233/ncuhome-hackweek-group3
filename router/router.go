@@ -69,7 +69,7 @@ func InitRouter() *gin.Engine{
 	{
 		api.GET("/user", user.GetUser)         //查看用户信息
 		api.POST("/update", user.UpdateUser)   //修改用户信息
-		api.POST("/pwd", login.UpdatePassword) //修改用户的密码
+		api.POST("/pwd", user.UpdatePassword) //修改用户的密码
 		api.DELETE("/delete", login.Logout)    //登出
 		api.POST("/upload", user.UpdatePhoto)  //上传图片
 	}

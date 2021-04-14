@@ -70,31 +70,7 @@ func CreateUser(data *model.User) (int,int) {
 //	return errmsg.Success
 //}
 
-
-//修改用户密码
-func UpdatePassword(data *model.UpdateNewPassword) (int,int) {
-	if data.NewPassword != data.CheckNewPassword {
-		return http.StatusBadRequest, errmsg.ErrPasswordDifferent
-	}
-	var u model.User
-	if err := dao.Db.Where("email = ?", data.Email).First(&u).Error; err != nil {
-		if err == gorm.ErrRecordNotFound {
-			return http.StatusBadRequest, errmsg.ErrPhoneNotExist
-		}else{
-			return http.StatusBadRequest, errmsg.Error
-		}
-	}
-	if ScryptPassword(data.OldPassword) != u.Password {
-		return http.StatusBadRequest, errmsg.ErrPassword
-	}
-	u.Password = ScryptPassword(data.NewPassword)
-	if err := dao.Db.Where("email = ?", data.Email).Update("password", u.Password).Error; err != nil {
-		return http.StatusInternalServerError, errmsg.Error
-	}
-	return http.StatusOK, errmsg.Success
-}
-
-//手机+密码登录验证
+//邮箱+密码登录验证
 func CheckLogin(login *model.Login) (int,int) {
 	var user model.User
 	if err := dao.Db.Where("email = ?", login.Email).First(&user).Error; err != nil {
@@ -107,13 +83,6 @@ func CheckLogin(login *model.Login) (int,int) {
 }
 
 
-//修改用户信息
-func UpdateUser(u *model.User) int {
-	if err := dao.Db.Updates(&u).Where("uid = ?", u.Uid).Error; err != nil {
-		return errmsg.Error
-	}
-	return errmsg.Success
-}
 
 //密码加密
 func ScryptPassword(password string) string {

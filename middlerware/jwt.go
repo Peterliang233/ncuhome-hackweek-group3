@@ -12,14 +12,14 @@ import (
 var MySecret = []byte("MySecret")
 
 type MyClaims struct {
-	Phone string `json:"phone"` //利用中间件保存一些有用的信息
+	Email string `json:"email"` //利用中间件保存一些有用的信息
 	jwt.StandardClaims
 }
 
 //生成token
-func GenerateToken(phone string) (string, int) {
+func GenerateToken(email string) (string, int) {
 	Claims := MyClaims{
-		phone,
+		email,
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(2 * time.Hour).Unix(), //设置过期时间
 			Issuer:    "peter",                              //设置签发人
@@ -89,7 +89,7 @@ func JWTAuthMiddleware() func(c *gin.Context) {
 			c.Abort()
 			return
 		}
-		c.Set("phone", claims.Phone)
+		c.Set("email", claims.Email)
 		c.Next()
 	}
 }

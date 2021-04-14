@@ -1,11 +1,10 @@
 package login
 
 import (
-	"fmt"
 	"github.com/Peterliang233/debate/errmsg"
 	"github.com/Peterliang233/debate/model"
-	"github.com/Peterliang233/debate/router/v1/api/user/validate"
 	Service "github.com/Peterliang233/debate/service/v1/api/user/login"
+	"github.com/Peterliang233/debate/service/v1/api/user/validate"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -45,9 +44,9 @@ func Registry(c *gin.Context) {
 	//等待验证邮箱，五分钟内有效
 	if !Service.Validation(NewUser.Code) {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"code": errmsg.ErrUserEmailUsed,
+			"code": errmsg.ErrEmailCode,
 			"msg": map[string]interface{}{
-				"detail": errmsg.CodeMsg[errmsg.ErrUserEmailUsed],
+				"detail": errmsg.CodeMsg[errmsg.ErrEmailCode],
 			},
 		})
 		return
@@ -73,7 +72,7 @@ func Registry(c *gin.Context) {
 func GetEmailCode(c *gin.Context) {
 	var code int
 	email := c.Query("email")
-	fmt.Printf(email)
+	//fmt.Printf(email)
 	//发送邮箱验证码
 	var emailCode string
 	emailCode, code = Service.SendEmail(email)
