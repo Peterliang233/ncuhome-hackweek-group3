@@ -44,19 +44,20 @@ func ParseToken(tokenString string) (*MyClaims, int) {
 	}
 	if claims, ok := token.Claims.(*MyClaims); ok && token.Valid {
 		return claims, errmsg.Success
-	} else {
-		return nil, errmsg.InvalidToken
 	}
+	return nil, errmsg.InvalidToken
 }
 
 //jwt中间件
 func JWTAuthMiddleware() func(c *gin.Context) {
 	return func(c *gin.Context) {
 		authHeader := c.Request.Header.Get("Authorization")
-		if authHeader == " " {
+		if authHeader == "" {
 			c.JSON(http.StatusOK, gin.H{
-				"status": errmsg.CodeMsg[errmsg.AuthEmpty],
-				"msg":    "请求头中的auth格式有误",
+				"code": errmsg.AuthEmpty,
+				"msg": map[string]interface{}{
+					"detail": errmsg.CodeMsg[errmsg.AuthEmpty],
+				},
 			})
 			c.Abort()
 			return
@@ -64,15 +65,17 @@ func JWTAuthMiddleware() func(c *gin.Context) {
 		parts := strings.SplitN(authHeader, " ", 2)
 		if !(len(parts) == 2 && parts[0] == "Bearer") {
 			c.JSON(http.StatusOK, gin.H{
-				"status": errmsg.InvalidToken,
-				"msg":    errmsg.CodeMsg[errmsg.InvalidToken],
+				"code": errmsg.InvalidToken,
+				"msg": map[string]interface{}{
+					"detail": errmsg.CodeMsg[errmsg.InvalidToken],
+				},
 			})
 			c.Abort()
 			return
 		}
 		claims, code := ParseToken(parts[1])
 		//token失效
-		if code == errmsg.InvalidToken {
+		if code != errmsg.Success {
 			c.JSON(http.StatusOK, gin.H{
 				"status": errmsg.InvalidToken,
 				"msg":    errmsg.CodeMsg[errmsg.InvalidToken],

@@ -1,11 +1,13 @@
 package login
 
 import (
+	"github.com/Peterliang233/debate/dao"
 	"github.com/Peterliang233/debate/errmsg"
 	"github.com/Peterliang233/debate/model"
 	Service "github.com/Peterliang233/debate/service/v1/api/user/login"
 	"github.com/Peterliang233/debate/service/v1/api/user/validate"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 )
 
@@ -30,12 +32,12 @@ func Registry(c *gin.Context) {
 		return
 	}
 	//检查邮箱是否被用
-	StatusCode, code := Service.CheckEmail(NewUser.Email)
-	if code != errmsg.Success {
+	StatusCode, Code := Service.CheckEmail(NewUser.Email)
+	if Code != errmsg.Success {
 		c.JSON(StatusCode, gin.H{
-			"code": code,
+			"code": Code,
 			"msg": map[string]interface{}{
-				"detail": errmsg.CodeMsg[code],
+				"detail": errmsg.CodeMsg[Code],
 			},
 		})
 		return
@@ -59,6 +61,13 @@ func Registry(c *gin.Context) {
 		Password: NewUser.Password,
 	}
 	StatusCode, code = Service.CreateUser(u)
+	//成功创建新用户，同时初始化用户得分
+	if code == errmsg.Success {
+		_, err := dao.Conn.Do("SET", u.Email + "score", "0")  //初始化每个用户的分数
+		if err != nil {
+			log.Fatal("初始化分数失败")
+		}
+	}
 	c.JSON(StatusCode, gin.H{
 		"code": code,
 		"msg": map[string]interface{}{

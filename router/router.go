@@ -67,8 +67,8 @@ func InitRouter() *gin.Engine{
 	api := v1Group.Group("/user")
 	api.Use(middlerware.JWTAuthMiddleware())
 	{
-		api.GET("/", user.GetUser)         //查看用户信息
-		api.PUT("/", user.UpdateUser)   //修改用户信息
+		api.GET("/info", user.GetUser)         //查看用户信息
+		api.PUT("/info", user.UpdateUser)   //修改用户信息
 		api.PUT("/pwd", user.UpdatePassword) //修改用户的密码
 		api.DELETE("/", login.Logout)    //登出
 		api.POST("/upload", user.UpdatePhoto)  //上传图片

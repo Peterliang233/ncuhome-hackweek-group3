@@ -108,15 +108,16 @@
 - Response Body
 ```json
 {
-    "code": 200,
-    "msg": {
-        "data": {
-            "username": "Visitor",
-            "score": "",
-            "img": ""
-        },
-        "detail": "成功"
-    }
+  "code": 200,
+  "msg": {
+    "data": {
+      "username": "xiaoliang",
+      "score": "0",
+      "img": "",
+      "title": "学录"
+    },
+    "detail": "成功"
+  }
 }
 ```
 ### 上传用户头像

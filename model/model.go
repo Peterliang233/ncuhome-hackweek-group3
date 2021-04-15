@@ -11,14 +11,14 @@ type User struct {
 	Email string  `gorm:"type:varchar(33);not null" json:"email" validate:"required,email" label:"邮箱"`
 	Img string  `gorm:"type:varchar(33);" json:"img"`
 	Role int  `gorm:"type:int;DEFAULT:2;" json:"role"`  //用户的角色，管理员或者非管理员
-	Score int `gorm:"type:int;DEFAULT:0" json:"score"`
 }
 
 
 type UserInfo struct {
 	Username string   `gorm:"type:varchar(50);not null" json:"username"`
-	Score string  `gorm:"type:int;not null" json:"score"`
+	Score string  `gorm:"type:varchar(33);not null" json:"score"`   //用户的分数存储在redis里面
 	Img string  `gorm:"type:varchar(33);" json:"img"`
+	Title string  `gorm:"type:varchar(33);not null" json:"title"`
 }
 
 type Login struct {
