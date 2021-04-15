@@ -19,3 +19,11 @@ time="2021-04-14 19:49:25" level=error Agent=PostmanRuntime/7.26.10 HostName=pet
 time="2021-04-14 19:49:33" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=POST SpendTime="447 ms" dataSize=16 ip="::1" path="/v1/verify?email=2107917115@qq.com" status=200
 time="2021-04-14 19:49:59" level=warning Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=POST SpendTime="3 ms" dataSize=54 ip="::1" path=/v1/registry status=400
 time="2021-04-14 19:50:09" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=POST SpendTime="188 ms" dataSize=32 ip="::1" path=/v1/registry status=200
+time="2021-04-14 22:09:05" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=POST SpendTime="17663 ms" dataSize=16 ip="::1" path="/v1/verify?email=2107917115@qq.com" status=200
+time="2021-04-14 22:09:22" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=POST SpendTime="16630 ms" dataSize=16 ip="::1" path="/v1/verify?email=2107917115@qq.com" status=200
+time="2021-04-14 22:10:23" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=POST SpendTime="16740 ms" dataSize=16 ip="::1" path="/v1/verify?email=2107917115@qq.com" status=200
+time="2021-04-14 22:11:23" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=POST SpendTime="142 ms" dataSize=38 ip="::1" path=/v1/registry status=200
+time="2021-04-14 22:15:33" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=POST SpendTime="94 ms" dataSize=210 ip="::1" path=/v1/login status=200
+time="2021-04-14 22:30:41" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=PUT SpendTime="0 ms" dataSize=38 ip="::1" path=/v1/user/pwd status=200
+time="2021-04-14 22:31:15" level=error Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=PUT SpendTime="204 ms" dataSize=33 ip="::1" path=/v1/user/pwd status=500
+time="2021-04-14 22:34:31" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=PUT SpendTime="211 ms" dataSize=38 ip="::1" path=/v1/user/pwd status=200

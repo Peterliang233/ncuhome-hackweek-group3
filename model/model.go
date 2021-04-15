@@ -7,17 +7,18 @@ type User struct {
 	Username string   `gorm:"type:varchar(50);DEFAULT:'null'" json:"username" validate:"required,min=6,max=12" label:"用户名"`
 	Password string   `gorm:"type:varchar(50);not null" json:"password" validate:"required,min=6,max=18" label:"用户密码"`
 	Phone string   `gorm:"type:varchar(30)" json:"phone"`
-	//Title string  `gorm:"type:varchar(33);not null" json:"title"`
+	Title string  `gorm:"type:varchar(33);not null" json:"title"`
 	Email string  `gorm:"type:varchar(33);not null" json:"email" validate:"required,email" label:"邮箱"`
 	Img string  `gorm:"type:varchar(33);" json:"img"`
 	Role int  `gorm:"type:int;DEFAULT:2;" json:"role"`  //用户的角色，管理员或者非管理员
-	Rid int  `gorm:"type:int;DEFAULT:1" json:"rid"`   //关联用户头衔的id
 	Score int `gorm:"type:int;DEFAULT:0" json:"score"`
 }
 
-type Identity struct {
-	Id int32  `gorm:"type:int;not null;primaryKey;auto_increment" json:"id"`
-	Name string   `gorm:"type:varchar(33)" json:"name"`
+
+type UserInfo struct {
+	Username string   `gorm:"type:varchar(50);not null" json:"username"`
+	Score string  `gorm:"type:int;not null" json:"score"`
+	Img string  `gorm:"type:varchar(33);" json:"img"`
 }
 
 type Login struct {
@@ -32,7 +33,7 @@ type UpdateNewPassword struct {
 	CheckNewPassword string `json:"check_new_password"`
 }
 
-type RegistryQuest struct {
+type RegistryRequest struct {
 	Email string  `gorm:"type:varchar(33);not null" json:"email" validate:"required,email" label:"邮箱"`
 	Password string   `gorm:"type:varchar(50);not null" json:"password" validate:"required,min=6,max=18" label:"用户密码"`
 	Code string `gorm:"type:varchar(10)" json:"code"`

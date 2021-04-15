@@ -11,7 +11,7 @@ import (
 )
 
 
-//获取用户信息
+//获取用户信息,显示用户名+头像+分数
 func GetUser(c *gin.Context) {
 	email, ok := c.Get("email")
 	if !ok {
@@ -34,8 +34,18 @@ func GetUser(c *gin.Context) {
 	})
 }
 
-//更新用户信息
+//更新用户信息（用户名+密码）
 func UpdateUser(c *gin.Context) {
+	email, ok := c.Get("email")
+	if !ok {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"code": errmsg.Error,
+			"msg": map[string]interface{}{
+				"detail": errmsg.CodeMsg[errmsg.Error],
+			},
+		})
+		return
+	}
 	var u model.User
 	err := c.ShouldBind(&u)
 	if err != nil {
@@ -46,13 +56,15 @@ func UpdateUser(c *gin.Context) {
 			},
 		})
 	}
-
+	u.Email = email.(string)
+	//仅限修改用户名和电话号码
 	StatusCode, code := user.UpdateUserInfo(&u)
 	c.JSON(StatusCode, gin.H{
 		"code": code,
 		"msg": map[string]interface{}{
 			"detail": errmsg.CodeMsg[code],
-			"data": u,
+			"username": u.Username,
+			"phone": u.Phone,
 		},
 	})
 }
@@ -114,7 +126,7 @@ func UpdatePassword(c *gin.Context) {
 	c.JSON(StatusCode, gin.H{
 		"code": code,
 		"msg": map[string]interface{}{
-			"detail": errmsg.Success,
+			"detail": errmsg.CodeMsg[code],
 		},
 	})
 }

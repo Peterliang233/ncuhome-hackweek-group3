@@ -10,15 +10,21 @@ import (
 )
 
 //根据查询用户信息
-func GetUserInfo(email string) (int,int, *model.User) {
-	var u *model.User
-	if err := dao.Db.Table("user").Where("email = ?", email).First(u).Error; err != nil {
+func GetUserInfo(email string) (int,int, *model.UserInfo) {
+	//fmt.Printf(email)
+	var u model.User
+	if err := dao.Db.Table("user").Where("email = ?", email).First(&u).Error; err != nil {
 		if err != gorm.ErrRecordNotFound {
 			return http.StatusInternalServerError,errmsg.Error,nil
 		}
 		return http.StatusNotFound, errmsg.Error,nil
 	}
-	return http.StatusOK, errmsg.Success, u
+	userInfo := model.UserInfo{
+		Username: u.Username,
+		Img: u.Img,
+	}
+	//userInfo.Score = dao.Conn.Do("GET", string(u.Uid))
+	return http.StatusOK, errmsg.Success, &userInfo
 }
 
 //修改用户密码
@@ -27,7 +33,7 @@ func UpdatePassword(data *model.UpdateNewPassword) (int,int) {
 		return http.StatusBadRequest, errmsg.ErrPasswordDifferent
 	}
 	var u model.User
-	if err := dao.Db.Where("email = ?", data.Email).First(&u).Error; err != nil {
+	if err := dao.Db.Table("user").Where("email = ?", data.Email).First(&u).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return http.StatusBadRequest, errmsg.ErrEmailNotExist
 		}else{
@@ -38,7 +44,7 @@ func UpdatePassword(data *model.UpdateNewPassword) (int,int) {
 		return http.StatusBadRequest, errmsg.ErrPassword
 	}
 	u.Password = login.ScryptPassword(data.NewPassword)
-	if err := dao.Db.Where("email = ?", data.Email).Update("password", u.Password).Error; err != nil {
+	if err := dao.Db.Table("user").Where("email = ?", data.Email).Update("password", u.Password).Error; err != nil {
 		return http.StatusInternalServerError, errmsg.Error
 	}
 	return http.StatusOK, errmsg.Success
@@ -47,7 +53,12 @@ func UpdatePassword(data *model.UpdateNewPassword) (int,int) {
 
 //修改用户信息(username和手机号码)
 func UpdateUserInfo(u *model.User) (int,int) {
-	if err := dao.Db.Where("email = ?", u.Email).Updates(map[string]interface{}{
+	//检查用户名是否被使用
+	StatusCode, code := login.CheckUsername(u.Username)
+	if code != errmsg.Success {
+		return StatusCode, code
+	}
+	if err := dao.Db.Table("user").Where("email = ?", u.Email).Updates(map[string]interface{}{
 		"username": u.Username,"phone": u.Phone,
 	}).Error; err != nil {
 		return http.StatusInternalServerError, errmsg.Error

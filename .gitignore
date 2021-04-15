@@ -5,7 +5,7 @@
 *.so
 *.dylib
 *.idea/
-×.ini
+config/config.ini
 # Test binary, built with `go test -c`
 *.test
 

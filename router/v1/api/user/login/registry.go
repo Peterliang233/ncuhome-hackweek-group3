@@ -11,7 +11,7 @@ import (
 
 //注册
 func Registry(c *gin.Context) {
-	var NewUser model.RegistryQuest
+	var NewUser model.RegistryRequest
 	err := c.ShouldBind(&NewUser)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -42,7 +42,7 @@ func Registry(c *gin.Context) {
 	}
 
 	//等待验证邮箱，五分钟内有效
-	if !Service.Validation(NewUser.Code) {
+	if !Service.Validation(NewUser.Email, NewUser.Code) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"code": errmsg.ErrEmailCode,
 			"msg": map[string]interface{}{
@@ -84,7 +84,7 @@ func GetEmailCode(c *gin.Context) {
 			},
 		})
 	}else{
-		if !Service.SetRedis(emailCode) {  //将生成的验证码保存在redis缓存里面
+		if !Service.SetRedis(email, emailCode) {  //将生成的验证码保存在redis缓存里面
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"msg": "error",
 			})

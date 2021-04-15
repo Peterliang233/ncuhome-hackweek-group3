@@ -1,0 +1,16 @@
+time="2021-04-15 08:14:03" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=POST SpendTime="652 ms" dataSize=16 ip="::1" path="/v1/verify?email=2107917115@qq.com" status=200
+time="2021-04-15 08:14:18" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=POST SpendTime="147 ms" dataSize=38 ip="::1" path=/v1/registry status=200
+time="2021-04-15 08:20:49" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=POST SpendTime="126 ms" dataSize=210 ip="::1" path=/v1/login status=200
+time="2021-04-15 08:21:41" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=PUT SpendTime="293 ms" dataSize=38 ip="::1" path=/v1/user/pwd status=200
+time="2021-04-15 08:25:31" level=error Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=GET SpendTime="0 ms" dataSize=50 ip="::1" path=/v1/user/ status=500
+time="2021-04-15 08:27:40" level=error Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=GET SpendTime="0 ms" dataSize=50 ip="::1" path=/v1/user/ status=500
+time="2021-04-15 08:28:11" level=error Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=GET SpendTime="0 ms" dataSize=50 ip="::1" path=/v1/user/ status=500
+time="2021-04-15 08:28:44" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=GET SpendTime="1 ms" dataSize=88 ip="::1" path=/v1/user/ status=200
+time="2021-04-15 08:32:28" level=error Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=PUT SpendTime="2 ms" dataSize=179 ip="::1" path=/v1/user/ status=500
+time="2021-04-15 08:35:06" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=PUT SpendTime="13 ms" dataSize=179 ip="::1" path=/v1/user/ status=200
+time="2021-04-15 08:37:46" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=PUT SpendTime="4 ms" dataSize=81 ip="::1" path=/v1/user/ status=200
+time="2021-04-15 08:38:18" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=PUT SpendTime="11 ms" dataSize=82 ip="::1" path=/v1/user/ status=200
+time="2021-04-15 08:39:07" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=PUT SpendTime="11 ms" dataSize=81 ip="::1" path=/v1/user/ status=200
+time="2021-04-15 08:39:21" level=warning Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=PUT SpendTime="1 ms" dataSize=95 ip="::1" path=/v1/user/ status=400
+time="2021-04-15 08:47:46" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=POST SpendTime="0 ms" dataSize=38 ip="::1" path=/v1/user/upload status=200
+time="2021-04-15 08:47:58" level=info Agent=PostmanRuntime/7.26.10 HostName=peterliang-tm1701 Method=POST SpendTime="0 ms" dataSize=56 ip="::1" path=/v1/user/upload status=200

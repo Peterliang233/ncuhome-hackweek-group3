@@ -12,9 +12,9 @@ import (
 )
 
 //type Repository interface {
-//	Find(id int32) (*model.User, error)
-//	Create(*model.User) error
-//	Update(*model.User) (*model.User, error)
+//	Find(id int32) (*dao.User, error)
+//	Create(*dao.User) error
+//	Update(*dao.User) (*dao.User, error)
 //}
 //
 //type User struct {
@@ -23,8 +23,8 @@ import (
 //
 //
 ////通过id查找该用户是否存在
-//func (repo *User) Find(id int32) (*model.User, error) {
-//	user := &model.User{}
+//func (repo *User) Find(id int32) (*dao.User, error) {
+//	user := &dao.User{}
 //	user.Uid = id
 //	if err := repo.Db.First(&user).Error; err != nil {
 //		return nil, err
@@ -33,7 +33,7 @@ import (
 //}
 //
 ////更新用户信息
-//func (repo *User) Update(user *model.User) (*model.User, error) {
+//func (repo *User) Update(user *dao.User) (*dao.User, error) {
 //	if err := repo.Db.Model(&user).Update(user).Error; err != nil {
 //		return nil, err
 //	}
@@ -41,7 +41,7 @@ import (
 //}
 //
 ////创建用户
-//func (repo *User) Create(user *model.User) error {
+//func (repo *User) Create(user *dao.User) error {
 //	if err := repo.Db.Create(&user).Error; err != nil {
 //		return err
 //	}
@@ -61,7 +61,7 @@ func CreateUser(data *model.User) (int,int) {
 
 //注销用户
 //func DeleteUser(id int32) int {
-//	var user model.User
+//	var user dao.User
 //	user.Uid = id
 //	if err := dao.Db.Where("uid = ",id).Delete(&user).Error; err != nil {
 //		return errmsg.Error
@@ -99,10 +99,9 @@ func ScryptPassword(password string) string {
 }
 
 
-//检查用户名和邮箱是否存在
+//检查邮箱是否存在
 func CheckEmail(email string) (int,int) {
 	var user model.User
-	//检查邮箱是否存在
 	if err := dao.Db.Table("user").Where("email = ?", email).First(&user).Error; err != nil {
 		if err != gorm.ErrRecordNotFound {
 			return http.StatusInternalServerError,errmsg.ErrDatabaseFound
@@ -114,6 +113,8 @@ func CheckEmail(email string) (int,int) {
 	}
 }
 
+
+//检查用户名是否存在
 func CheckUsername(username string) (int,int) {
 	var user model.User
 	//检查邮箱是否存在

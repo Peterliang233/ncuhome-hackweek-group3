@@ -1,19 +1,156 @@
-# api文档
+# 第三组后端代码
+
+## api文档
 - [API 文档](#api文档)
     + [basic Response Body]
 - [1.用户登录](#用户注册)
 - [2.用户注册](#用户登录)
+- [3.邮箱验证](#邮箱验证)  
 - [3.退出登录](#退出登录)  
 - [4.修改用户信息](#修改用户信息)
-- [5.上传用户头像](#上传用户头像)
+- [5.修改用户密码](修改用户密码)  
+- [6.上传用户头像](#上传用户头像)
 
 
-## 用户登录
+### 用户登录
+- RUL: v1/login
+- Method: POST
+- Request Body
 
-## 用户注册
+```json
+{
+    "email": "2107917115@qq.com",
+    "password": "3607812001lyp"
+}
+```
 
-## 退出登录
+- Response Body
+```json
+{
+    "code": 200,
+    "msg": {
+        "detail": "成功",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjIxMDc5MTcxMTVAcXEuY29tIiwiZXhwIjoxNjE4NDE2OTMzLCJpc3MiOiJwZXRlciJ9.rv31MRiM-oPbCSE73clMYjScZ9FM8dSeS2Jh7bYcXmw"
+    }
+}
+```
+### 用户注册
+- RUL: v1/registry
+- Method: POST
+- Request Body
+```json
+{
+    "email": "2107917115@qq.com",
+    "password":"3607812001lyp",
+    "code":"341553"
+}
+```
+- Response Body
+```json
+{
+    "code": 200,
+    "msg": {
+        "detail": "成功"
+    }
+}
+```
 
-## 修改用户信息
+### 邮箱验证
+- URL: v1/verify
+- Method: POST
+- Request Body
+```json
+"email": "123456@qq.com"
+```
 
-## 上传用户头像
+- Response Body
+```json
+{
+    "msg": "651169"
+}
+```
+### 退出登录
+- URL: /v1/user/
+- Method: DELETE
+- Request Body
+```json
+
+```
+- Response Body
+```json
+
+```
+### 修改用户信息
+- URL:/v1/user/
+- Method: PUT
+- Request Body
+```json
+{
+    "phone": "123213132",
+    "username": "peterliang"
+}
+```
+- Response Body
+```json
+{
+    "code": 200,
+    "msg": {
+        "detail": "成功",
+        "phone": "123213132",
+        "username": "xiaoliang"
+    }
+}
+```
+
+### 获取用户信息
+- URL:/v1/user/
+- Method: GET
+- Response Body
+```json
+{
+    "code": 200,
+    "msg": {
+        "data": {
+            "username": "Visitor",
+            "score": "",
+            "img": ""
+        },
+        "detail": "成功"
+    }
+}
+```
+### 上传用户头像
+- URL: v1/user/upload
+- Method: POST
+- Response Body
+```json
+{
+    "code": 200,
+    "msg": {
+        "data": "",
+        "detail": "upload success"
+    }
+}
+```
+
+### 修改用户密码
+- URL:v1/user/pwd
+- Method: PUT
+- Request Body
+```json
+{
+    "email": "2107917115@qq.com",
+    "old_password": "3607812001lyp",
+    "new_password": "123456abc",
+    "check_new_password": "123456abc"
+}
+```
+- Response Body
+```json
+{
+    "code": 200,
+    "msg": {
+        "detail": "成功"
+    }
+}
+```

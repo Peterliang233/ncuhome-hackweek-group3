@@ -36,6 +36,12 @@ type email struct {
 
 var EmailSetting = &email{}
 
+type redis struct {
+	HostPort string
+}
+
+var RedisSetting = &redis{}
+
 var cfg *ini.File
 
 func init() {
@@ -47,6 +53,7 @@ func init() {
 	mapTo("server", ServerSetting)
 	mapTo("database", DatabaseSetting)
 	mapTo("email", EmailSetting)
+	mapTo("redis", RedisSetting)
 }
 
 func mapTo(s string, i interface{}){
