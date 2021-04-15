@@ -45,4 +45,9 @@ func InitRedis() {
 	if err != nil {
 		log.Println("connect redis error :", err)
 	}
+	//对于辩论模块，将用户文章id默认从0开始
+	_, err = dao.Conn.Do("SET", "debateId", "0")
+	if err != nil {
+		log.Println(err)
+	}
 }

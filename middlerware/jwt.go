@@ -77,8 +77,8 @@ func JWTAuthMiddleware() func(c *gin.Context) {
 		//token失效
 		if code != errmsg.Success {
 			c.JSON(http.StatusOK, gin.H{
-				"status": errmsg.InvalidToken,
-				"msg":    errmsg.CodeMsg[errmsg.InvalidToken],
+				"status": code,
+				"msg":    errmsg.CodeMsg[code],
 			})
 			c.Abort()
 			return

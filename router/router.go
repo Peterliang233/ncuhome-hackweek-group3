@@ -6,6 +6,7 @@ import (
 	"github.com/Peterliang233/debate/middlerware"
 	"github.com/Peterliang233/debate/router/v1/api/user"
 	"github.com/Peterliang233/debate/router/v1/api/user/login"
+	debate "github.com/Peterliang233/debate/router/v1/api/socket"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -59,19 +60,27 @@ func InitRouter() *gin.Engine{
 	router.Use(middlerware.Logger())
 	router.Use(middlerware.Cors())
 
-
-	v1Group := router.Group("/v1")
+	v1Group := router.Group("/v1/api")
 	v1Group.POST("/login", login.Login)
 	v1Group.POST("/registry", login.Registry)
 	v1Group.POST("/verify", login.GetEmailCode)  //注册时点击获取邮箱验证码
-	api := v1Group.Group("/user")
-	api.Use(middlerware.JWTAuthMiddleware())
+	//api := v1Group.Group("/api")
+	v1Group.Use(middlerware.JWTAuthMiddleware())
 	{
-		api.GET("/info", user.GetUser)         //查看用户信息
-		api.PUT("/info", user.UpdateUser)   //修改用户信息
-		api.PUT("/pwd", user.UpdatePassword) //修改用户的密码
-		api.DELETE("/", login.Logout)    //登出
-		api.POST("/upload", user.UpdatePhoto)  //上传图片
+		//用户组
+		V1User := v1Group.Group("/user")
+		{
+			V1User.GET("/info", user.GetUser)        //查看用户信息
+			V1User.POST("/upload", user.UpdatePhoto) //上传图片
+			V1User.PUT("/info", user.UpdateUser)     //修改用户信息
+			V1User.PUT("/pwd", user.UpdatePassword)  //修改用户的密码
+			V1User.DELETE("/", login.Logout)         //登出
+		}
+		//通信组
+		V1Socket := v1Group.Group("/socket")
+		{
+			V1Socket.POST("/debate", debate.OneToOneDebate)
+		}
 	}
 	return router
 }
