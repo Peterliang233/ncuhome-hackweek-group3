@@ -70,15 +70,20 @@
 }
 ```
 ### 退出登录
-- URL: /v1/api/user/
+- URL: /v1/api/user/logout
 - Method: DELETE
 - Request Body
 ```json
-
+"email":"2101917115@qq.com",
 ```
 - Response Body
 ```json
-
+{
+    "code": 200,
+    "msg": {
+        "detail": "成功"
+    }
+}
 ```
 ### 修改用户信息
 - URL:/v1/api/user/info
