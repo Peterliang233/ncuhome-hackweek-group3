@@ -59,7 +59,7 @@ func init() {
 func mapTo(s string, i interface{}){
 	err := cfg.Section(s).MapTo(i)
 	if err != nil {
-		log.Fatalln("Cfg.MapTo", s, "err", err)
+		log.Println("Cfg.MapTo", s, "err", err)
 	}
 }
 

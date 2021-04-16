@@ -1,8 +1,11 @@
 package middlerware
 
 import (
+	"fmt"
+	"github.com/Peterliang233/debate/dao"
 	"github.com/Peterliang233/debate/errmsg"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/garyburd/redigo/redis"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
@@ -21,7 +24,7 @@ func GenerateToken(email string) (string, int) {
 	Claims := MyClaims{
 		email,
 		jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(2 * time.Hour).Unix(), //设置过期时间
+			ExpiresAt: time.Now().Add(2*time.Hour).Unix(), //设置过期时间
 			Issuer:    "peter",                              //设置签发人
 		},
 	}
@@ -84,7 +87,8 @@ func JWTAuthMiddleware() func(c *gin.Context) {
 			return
 		}
 		//token过期
-		if claims.ExpiresAt < time.Now().Unix() {
+		//fmt.Println(parts[1])
+		if claims.ExpiresAt < time.Now().Unix() || (CheckRedisToken(claims.Email,parts[1])==false) {
 			c.JSON(http.StatusOK, gin.H{
 				"status": errmsg.TokenRunTimeError,
 				"msg":    errmsg.CodeMsg[errmsg.TokenRunTimeError],
@@ -95,4 +99,13 @@ func JWTAuthMiddleware() func(c *gin.Context) {
 		c.Set("email", claims.Email)
 		c.Next()
 	}
+}
+
+func CheckRedisToken(email, token string) bool {
+	NowToken, err := redis.String(dao.Conn.Do("GET", email + "token"))
+	if err != nil {
+		fmt.Println("Get token value err :", err)
+		return false
+	}
+	return NowToken == token
 }

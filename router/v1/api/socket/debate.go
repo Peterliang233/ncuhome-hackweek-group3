@@ -11,7 +11,7 @@ import (
 
 //1v1进行辩论
 func OneToOneDebate(c *gin.Context) {
-	var debate model.Debate
+	var debate model.DebateRedis
 	err := c.ShouldBind(&debate)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -33,3 +33,10 @@ func OneToOneDebate(c *gin.Context) {
 	//content := strings.Split(debate.PositiveContent, " ")
 
 }
+
+
+//通过id获取辩论记录
+//func GetDebate(c *gin.Context) {
+//	id, _ := strconv.Atoi(c.Param("id"))
+//
+//}

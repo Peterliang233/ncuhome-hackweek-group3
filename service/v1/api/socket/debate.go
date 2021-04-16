@@ -12,16 +12,28 @@ import (
 
 
 //将辩论内容记录在redis
-func CreateRecord(debate * model.Debate) (int,int) {
-	debateId, err := redis.Int(dao.Conn.Do("incr", "debateId"))
+func CreateRecord(debate * model.DebateRedis) (int,int) {
+	debateId, err := redis.Int(dao.Conn.Do("incr", "debateId"))  //记录下辩论的总场次
 	if err != nil {
 		return http.StatusInternalServerError, errmsg.Error
 	}
 
+	deb := model.DebateMysql{
+		Id: debate.Id,
+		Yid: debate.Yid,
+		Nid: debate.Nid,
+	}
+
+	//将场次信息存储在mysql里面
+	if err := dao.Db.Table("debate").Create(&deb).Error; err != nil {
+		return http.StatusInternalServerError, errmsg.Error
+	}
 	now := time.Now().Unix()
+
+	//存储redis
 	_, err = dao.Conn.Do(
 		"HMSET",
-			"articleId" + strconv.Itoa(debateId),
+			strconv.Itoa(debateId),
 			"title", debate.Title,
 			"positive_content", debate.PositiveContent,
 			"negative_content", debate.NegativeContent,

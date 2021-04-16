@@ -13,7 +13,7 @@
 
 
 ### 用户登录
-- RUL: v1/login
+- RUL: v1/api/login
 - Method: POST
 - Request Body
 
@@ -35,7 +35,7 @@
 }
 ```
 ### 用户注册
-- RUL: v1/registry
+- RUL: v1/api/registry
 - Method: POST
 - Request Body
 ```json
@@ -56,7 +56,7 @@
 ```
 
 ### 邮箱验证
-- URL: v1/verify
+- URL: v1/api/verify
 - Method: POST
 - Request Body
 ```json
@@ -70,7 +70,7 @@
 }
 ```
 ### 退出登录
-- URL: /v1/user/
+- URL: /v1/api/user/
 - Method: DELETE
 - Request Body
 ```json
@@ -81,7 +81,7 @@
 
 ```
 ### 修改用户信息
-- URL:/v1/user/
+- URL:/v1/api/user/info
 - Method: PUT
 - Request Body
 ```json
@@ -103,7 +103,7 @@
 ```
 
 ### 获取用户信息
-- URL:/v1/user/
+- URL:/v1/api/user/info
 - Method: GET
 - Response Body
 ```json
@@ -121,7 +121,7 @@
 }
 ```
 ### 上传用户头像
-- URL: v1/user/upload
+- URL: v1/api/user/upload
 - Method: POST
 - Response Body
 ```json
@@ -135,7 +135,7 @@
 ```
 
 ### 修改用户密码
-- URL:v1/user/pwd
+- URL:v1/api/user/pwd
 - Method: PUT
 - Request Body
 ```json
