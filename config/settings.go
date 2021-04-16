@@ -42,6 +42,16 @@ type redis struct {
 
 var RedisSetting = &redis{}
 
+type Socket struct {
+	WriteWait int
+	PongWait int
+	MaxMessageSize int
+	ReadBufferSize int
+	WriteBufferSize int
+}
+
+var SocketSetting = &Socket{}
+
 var cfg *ini.File
 
 func init() {
@@ -54,6 +64,7 @@ func init() {
 	mapTo("database", DatabaseSetting)
 	mapTo("email", EmailSetting)
 	mapTo("redis", RedisSetting)
+	mapTo("socket", SocketSetting)
 }
 
 func mapTo(s string, i interface{}){

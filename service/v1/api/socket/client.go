@@ -1,1 +1,5 @@
 package socket
+
+const (
+
+)
