@@ -79,8 +79,8 @@ func InitRouter() *gin.Engine{
 		//通信组
 		V1Socket := v1Group.Group("/socket")
 		{
-			V1Socket.POST("/debate", debate.OneToOneDebate)
-			V1Socket.GET("/debate/:id")
+			V1Socket.POST("/debate", debate.OneToOneDebate)  //发送辩论记录
+			V1Socket.GET("/debate/:id", debate.GetDebate)  //获取单个辩论记录
 		}
 	}
 	return router

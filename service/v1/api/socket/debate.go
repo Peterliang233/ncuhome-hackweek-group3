@@ -37,8 +37,8 @@ func CreateRecord(debate * model.DebateRedis) (int,int) {
 			"title", debate.Title,
 			"positive_content", debate.PositiveContent,
 			"negative_content", debate.NegativeContent,
-			"yid", debate.Yid,
-			"nid", debate.Nid,
+			"yid", strconv.Itoa(int(debate.Yid)),
+			"nid", strconv.Itoa(int(debate.Nid)),
 			"time", now,
 	)
 	if err != nil {
