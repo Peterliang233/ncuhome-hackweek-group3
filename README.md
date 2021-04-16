@@ -34,7 +34,13 @@
     }
 }
 ```
+| 序号 | 参数     | 类型        | 简介     |
+| ---- | -------- | ----------- | -------- |
+| 1    | email    | varchar(33) | 用户邮箱 |
+| 2    | password | varchar(33) | 用户密码 |
+
 ### 用户注册
+
 - RUL: v1/api/registry
 - Method: POST
 - Request Body
@@ -55,7 +61,16 @@
 }
 ```
 
+| 序号 | 参数     | 类型        | 简介             |
+| ---- | -------- | ----------- | ---------------- |
+| 1    | email    | varchar(33) | 用户邮箱         |
+| 2    | password | varchar(33) | 用户密码         |
+| 3    | code     | varchar(10) | 用户收到的验证码 |
+
+
+
 ### 邮箱验证
+
 - URL: v1/api/verify
 - Method: POST
 - Request Body
@@ -69,12 +84,17 @@
     "msg": "651169"
 }
 ```
+| 序号 | 参数  | 类型        | 简介       |
+| ---- | ----- | ----------- | ---------- |
+| 1    | email | varchar(33) | 用户的邮箱 |
+
 ### 退出登录
+
 - URL: /v1/api/user/logout
 - Method: DELETE
 - Request Body
 ```json
-"email":"2101917115@qq.com",
+"email":"2101917115@qq.com"
 ```
 - Response Body
 ```json
@@ -85,7 +105,14 @@
     }
 }
 ```
+| 序号 | 参数  | 类型        | 简介       |
+| ---- | ----- | ----------- | ---------- |
+| 1    | email | varchar(33) | 用户的邮箱 |
+
+
+
 ### 修改用户信息
+
 - URL:/v1/api/user/info
 - Method: PUT
 - Request Body
@@ -107,7 +134,15 @@
 }
 ```
 
+| 序号 | 参数     | 类型        | 简介       |
+| ---- | -------- | ----------- | ---------- |
+| 1    | phone    | varchar(30) | 用户的电话 |
+| 2    | username | varchar(30) | 用户名     |
+
+
+
 ### 获取用户信息
+
 - URL:/v1/api/user/info
 - Method: GET
 - Response Body
@@ -126,6 +161,7 @@
 }
 ```
 ### 上传用户头像
+
 - URL: v1/api/user/upload
 - Method: POST
 - Response Body
@@ -139,7 +175,14 @@
 }
 ```
 
+| 序号 | 参数 | 类型 | 简介       |
+| ---- | ---- | ---- | ---------- |
+| 1    | file | file | 上传的文件 |
+
+
+
 ### 修改用户密码
+
 - URL:v1/api/user/pwd
 - Method: PUT
 - Request Body
@@ -160,3 +203,11 @@
     }
 }
 ```
+
+| 序号 | 参数               | 类型        | 简介             |
+| ---- | ------------------ | ----------- | ---------------- |
+| 1    | email              | varchar(33) | 用户的邮箱       |
+| 2    | old_password       | varchar(30) | 用户的旧密码     |
+| 3    | new_password       | varchar(30) | 用户的新密码     |
+| 4    | check_new_password | varchar(30) | 确认用户的新密码 |
+

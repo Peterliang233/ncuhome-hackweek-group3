@@ -46,3 +46,12 @@ func CreateRecord(debate * model.DebateRedis) (int,int) {
 	}
 	return http.StatusOK, errmsg.Success
 }
+
+
+func GetRedisHashRecord(id string) (interface{}, int, int) {
+	result, err := redis.Values(dao.Conn.Do("HGETALL", id))
+	if err != nil {
+		return nil, http.StatusInternalServerError, errmsg.Error
+	}
+	return result, http.StatusOK, errmsg.Success
+}
