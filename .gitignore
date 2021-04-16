@@ -4,3 +4,5 @@
 *.log
 *.rdb
 *.idea
+log
+./idea
