@@ -89,6 +89,7 @@ func InitRouter() *gin.Engine{
 			//V1Debate.GET("/records/future")  //获取将来的辩论场
 			V1Debate.POST("/pos", debate.ChosePositive)   //选择正方
 			V1Debate.POST("/neg", debate.ChoseNegative)   //选择反方
+			V1Debate.POST("/add", debate.AddTitle)  //添加辩题
 		}
 		//通信组
 		router.GET("/ws", func(c *gin.Context){  //socket通信接口

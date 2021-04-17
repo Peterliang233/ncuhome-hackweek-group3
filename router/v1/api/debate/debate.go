@@ -56,6 +56,7 @@ func GetRecords(c *gin.Context) {
 	var page model.Page
 	_ = c.ShouldBind(&page)
 	records, statusCode, code := debate2.GetRecords(page)
+	fmt.Println(records)
 	c.JSON(statusCode, gin.H{
 		"code": code,
 		"msg": map[string]interface{}{
@@ -120,7 +121,16 @@ func GetFutureDebates(c *gin.Context) {
 	}
 }
 
-//获取已开始的辩论
-func GetLastDebate(c *gin.Context) {
-
+//添加辩题
+func AddTitle(c *gin.Context) {
+	var debate model.DebateContent
+	_ = c.ShouldBind(&debate)
+	statusCode, code := debate2.AddTitle(debate)
+	c.JSON(statusCode, gin.H{
+		"code": code,
+		"msg": map[string]interface{}{
+			"detail": errmsg.CodeMsg[code],
+			"data": debate,
+		},
+	})
 }

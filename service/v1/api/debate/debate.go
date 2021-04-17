@@ -6,6 +6,7 @@ import (
 	"github.com/Peterliang233/debate/errmsg"
 	"github.com/Peterliang233/debate/model"
 	"github.com/garyburd/redigo/redis"
+	"github.com/jinzhu/gorm"
 	"log"
 	"net/http"
 	"strconv"
@@ -92,6 +93,9 @@ func UpdatePositive(content * model.DebateContent) (StatusCode, code int){
 	//}
 	if err := dao.Db.Table("debate").Where("title = ?", content.Title).
 		Update("positive_username", content.PositiveUsername).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return http.StatusBadRequest, errmsg.ErrDatabaseFound
+		}
 		return http.StatusInternalServerError, errmsg.Error
 	}
 	return http.StatusOK, errmsg.Success
@@ -111,15 +115,17 @@ func UpdateNegative(content * model.DebateContent) (StatusCode, code int){
 //分页展示
 func GetRecords(page model.Page) (records []model.DebateContent, statusCode, code int) {
 	if err := dao.Db.Table("debate").
-		Limit(page.PageSize).Offset((page.PageNum-1)*page.PageSize).
+		Offset((page.PageNum-1)*page.PageSize).Limit(page.PageSize).
 		Find(&records).Error; err != nil {
 		return nil, http.StatusInternalServerError, errmsg.Error
 	}
 	return records, http.StatusOK, errmsg.Success
 }
 
-//func GetRecordsByTime(page model.Page) (records []model.DebateContent, statusCode, code int) {
-//	if err := dao.Db.Table("debate").Order("CreateAt").Error; err != nil {
-//
-//	}
-//}
+//添加辩题
+func AddTitle(content model.DebateContent) (statusCode, code int) {
+	if err := dao.Db.Create(&content); err != nil {
+		return http.StatusInternalServerError, errmsg.Error
+	}
+	return http.StatusOK, errmsg.Success
+}
