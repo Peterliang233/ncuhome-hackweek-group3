@@ -21,9 +21,9 @@ INSERT INTO user VALUES (1,1,'peterliang','ULwH1CwT3mCPMQ==','123456789','12345@
 -- );
 
 CREATE TABLE debate (
-    id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(33) NOT NULL,
     positive_username VARCHAR(33),
     negative_username VARCHAR(33),
     begin_time VARCHAR(30)
-)
+);

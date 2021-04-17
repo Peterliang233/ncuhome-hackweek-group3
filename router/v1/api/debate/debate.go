@@ -2,7 +2,6 @@ package debate
 
 import (
 	"fmt"
-	"github.com/Peterliang233/debate/dao"
 	"github.com/Peterliang233/debate/errmsg"
 	"github.com/Peterliang233/debate/model"
 	debate2 "github.com/Peterliang233/debate/service/v1/api/debate"
@@ -114,12 +113,12 @@ func ChoseNegative(c *gin.Context) {
 }
 
 //获取未开始的辩论
-func GetFutureDebates(c *gin.Context) {
-	var records []model.DebateContent
-	if err := dao.Db.Table("debate").Order("CreateAt").Find(&records).Error; err != nil {
-
-	}
-}
+//func GetFutureDebates(c *gin.Context) {
+//	var records []model.DebateContent
+//	if err := dao.Db.Table("debate").Order("CreateAt").Find(&records).Error; err != nil {
+//
+//	}
+//}
 
 //添加辩题
 func AddTitle(c *gin.Context) {

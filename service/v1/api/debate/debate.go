@@ -84,7 +84,7 @@ func GetRedisHashRecord(id string) (map[string]string, int, int) {
 
 
 //更新为选择正方
-func UpdatePositive(content * model.DebateContent) (StatusCode, code int){
+func UpdatePositive(content *model.DebateContent) (StatusCode, code int){
 	//var user model.User
 	////获取用户id
 	//if err := dao.Db.Table("user").Where("username = ?", content.NegativeUsername).
@@ -124,7 +124,8 @@ func GetRecords(page model.Page) (records []model.DebateContent, statusCode, cod
 
 //添加辩题
 func AddTitle(content model.DebateContent) (statusCode, code int) {
-	if err := dao.Db.Create(&content); err != nil {
+	if err := dao.Db.Table("debate").Create(&content).Error; err != nil {
+		fmt.Println(err)
 		return http.StatusInternalServerError, errmsg.Error
 	}
 	return http.StatusOK, errmsg.Success

@@ -22,8 +22,8 @@ type DebateMysql struct {
 
 //辩论的情况
 type DebateContent struct {
-	Id int  `gorm:"type:int;primaryKey;not null" json:"id"`
-	Title            string `gorm:"type:varchar(100);not null" json:"title" label:"辩题"`
+	Id int `gorm:"type:int;not null;auto_increment" json:"id"`
+	Title         string `gorm:"type:varchar(100);not null" json:"title" label:"辩题"`
 	PositiveUsername string `gorm:"type:varchar(20);" json:"positive_username"`
 	NegativeUsername string `gorm:"type:varchar(20);" json:"negative_username"`
 	BeginTime string  `gorm:"type:varchar(33);not null" json:"begin_time"`

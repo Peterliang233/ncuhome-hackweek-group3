@@ -16,6 +16,7 @@
 - [12.获取将来的辩论场](#获取将来的辩论场)
 - [13.选择正方](#选择正方)
 - [14.选择反方](#选择反方)
+- [15.添加辩题](#添加辩题)  
 - [返回状态码表](#返回状态码表)
 - [通信原理图](#通信原理图)
 
@@ -324,22 +325,69 @@
 - Method: POST
 - Request Body
 ```json
-
+{
+    "title": "我是阿巴",
+    "positive_username": "peter",
+    "begin_time":"2020-01-02 12:12:12"
+}
 ```
 - Response Body
 ```json
-
+{
+    "code": 200,
+    "msg": {
+        "detail": "成功",
+        "username": "peter"
+    }
+}
 ```
 ### 选择反方
 - URL: /v1/api/debate/neg
 - Method: POST
 - Request Body
 ```json
-
+{
+    "title": "我是阿巴",
+    "negative_username": "peter",
+    "begin_time":"2020-01-02 12:12:12"
+}
 ```
 - Response Body
 ```json
+{
+    "code": 200,
+    "msg": {
+        "detail": "成功",
+        "username": "peter"
+    }
+}
+```
 
+### 添加辩题
+- URL: /v1/api/debate/add
+- Method: POST
+- Request Body
+```json
+{
+    "title": "我是阿巴",
+    "begin_time": "2021-04-17 23:59:23"
+}
+```
+- Response Body
+```json
+{
+    "code": 200,
+    "msg": {
+        "data": {
+            "id": 0,
+            "title": "我是阿巴",
+            "positive_username": "",
+            "negative_username": "",
+            "begin_time": "2021-04-17 23:59:23"
+        },
+        "detail": "成功"
+    }
+}
 ```
 
 ### 返回状态码表

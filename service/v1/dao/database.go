@@ -33,7 +33,7 @@ func InitMysql() {
 
 	dao.Db.SingularTable(true)
 	dao.Db.AutoMigrate(&model.User{})
-	dao.Db.AutoMigrate(&model.DebateMysql{})
+	dao.Db.AutoMigrate(&model.DebateContent{})
 	dao.Db.DB().SetMaxIdleConns(10)
 	dao.Db.DB().SetMaxOpenConns(100)
 	dao.Db.DB().SetConnMaxLifetime(10 * time.Second)
