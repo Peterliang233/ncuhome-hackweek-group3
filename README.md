@@ -214,30 +214,41 @@
 - Request Body
 ```json
 {
-    "yid": 1,
-    "nid": 2,
-    "title":"阿巴阿巴阿巴",
-    "negative_content": "我不是阿巴阿巴阿巴",
-    "positive_content": "我是阿巴阿巴阿巴"
+  "positive_username":"张三",
+  "negative_username": "李四",
+  "title":"阿巴阿巴阿巴",
+  "negative_content": "我不是阿巴阿巴阿巴",
+  "positive_content": "我是阿巴阿巴阿巴",
+  "begin_time": "2021-04-17 23:59:23"
 }
 ```
 - Response Body
 ```json
 {
-    "code": 200,
-    "msg": {
-        "detail": "成功"
-    }
+  "code": 200,
+  "msg": {
+    "data": {
+      "id": 1,
+      "positive_username": "张三",
+      "negative_username": "李四",
+      "title": "阿巴阿巴阿巴",
+      "negative_content": "我不是阿巴阿巴阿巴",
+      "positive_content": "我是阿巴阿巴阿巴",
+      "begin_time": "2021-04-17 23:59:23"
+    },
+    "detail": "成功"
+  }
 }
 ```
 
 | 序号 | 参数             | 类型   | 简介         |
 | ---- | ---------------- | ------ | ------------ |
-| 1    | yid              | int    | 正方的用户id |
-| 2    | nid              | int    | 反方的用户id |
+| 1    | positive_username| string | 正方的用户id |
+| 2    | negative_username| string    | 反方的用户id |
 | 3    | title            | string | 辩论的标题   |
 | 4    | negative_content | string | 正方的发言   |
 | 5    | positive_content | string | 反方的发言   |
+| 6    | begin_time       | string | 辩论开始的时间|
 
 ### 查询辩论场次的数据
 
@@ -256,8 +267,10 @@
   "msg": {
     "data": {
       "negative_content": "我不是阿巴阿巴阿巴",
+      "negative_username": "李四",
       "nid": "2",
       "positive_content": "我是阿巴阿巴阿巴",
+      "positive_username": "张三",
       "time": "2021-04-17 23:59:23",
       "title": "阿巴阿巴阿巴",
       "yid": "1"

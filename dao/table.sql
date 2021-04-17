@@ -24,5 +24,6 @@ CREATE TABLE debate (
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(33) NOT NULL,
     positive_username VARCHAR(33),
-    negative_username VARCHAR(33)
+    negative_username VARCHAR(33),
+    begin_time VARCHAR(30)
 )

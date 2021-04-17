@@ -9,7 +9,6 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-	"time"
 )
 
 
@@ -21,10 +20,12 @@ func CreateRecord(debate * model.DebateRedis) (int,int) {
 		return http.StatusInternalServerError, errmsg.Error
 	}
 
-	deb := model.DebateMysql{
-		Id: debate.Id,
-		Yid: debate.Yid,
-		Nid: debate.Nid,
+	deb := model.DebateContent{
+		Id: debateId,
+		Title: debate.Title,
+		PositiveUsername: debate.PositiveContent,
+		NegativeUsername: debate.NegativeContent,
+		BeginTime: debate.BeginTime,
 	}
 
 	//将场次信息存储在mysql里面
@@ -32,8 +33,6 @@ func CreateRecord(debate * model.DebateRedis) (int,int) {
 		fmt.Print(err)
 		return http.StatusInternalServerError, errmsg.Error
 	}
-	now := time.Now().Format("2006-01-02 15:04:05")
-
 	//存储redis
 	_, err = dao.Conn.Do(
 		"HMSET",
@@ -41,9 +40,9 @@ func CreateRecord(debate * model.DebateRedis) (int,int) {
 			"title", debate.Title,
 			"positive_content", debate.PositiveContent,
 			"negative_content", debate.NegativeContent,
-			"yid", strconv.Itoa(int(debate.Yid)),
-			"nid", strconv.Itoa(int(debate.Nid)),
-			"time", now,
+			"positive_username", debate.PositiveUsername,
+			"negative_username", debate.NegativeUsername,
+			"time", debate.BeginTime,
 	)
 	if err != nil {
 		fmt.Println(err)
@@ -83,7 +82,7 @@ func GetRedisHashRecord(id string) (map[string]string, int, int) {
 }
 
 
-
+//更新为选择正方
 func UpdatePositive(content * model.DebateContent) (StatusCode, code int){
 	//var user model.User
 	////获取用户id
@@ -98,13 +97,9 @@ func UpdatePositive(content * model.DebateContent) (StatusCode, code int){
 	return http.StatusOK, errmsg.Success
 }
 
+
+//更新为选择反方
 func UpdateNegative(content * model.DebateContent) (StatusCode, code int){
-	//var user model.User
-	////获取用户id
-	//if err := dao.Db.Table("user").Where("username = ?", content.NegativeUsername).
-	//	First(&user).Error; err != nil {
-	//	return http.StatusInternalServerError, errmsg.Error
-	//}
 	if err := dao.Db.Table("debate").Where("title = ?", content.Title).
 		Update("negative_username", content.NegativeUsername).Error; err != nil {
 		return http.StatusInternalServerError, errmsg.Error

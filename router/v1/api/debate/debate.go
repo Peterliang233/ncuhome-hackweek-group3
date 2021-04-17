@@ -21,6 +21,7 @@ func OneToOneDebate(c *gin.Context) {
 			"code": errmsg.Error,
 			"msg": map[string]interface{}{
 				"detail": errmsg.CodeMsg[errmsg.Error],
+				"data": debate,
 			},
 		})
 		return
@@ -30,6 +31,7 @@ func OneToOneDebate(c *gin.Context) {
 		"code": code,
 		"msg": map[string]interface{}{
 			"detail": errmsg.CodeMsg[code],
+			"data": debate,
 		},
 	})
 	//content := strings.Split(debate.PositiveContent, " ")
