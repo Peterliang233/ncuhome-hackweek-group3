@@ -99,43 +99,43 @@
 | 1    | email | varchar(33) | 用户的邮箱   |
 | 2    | msg   | string      | 发送的验证码 |
 
-[comment]: <> (### 退出登录)
+[comment]: <> "### 退出登录"
 
-[comment]: <> (- URL: /v1/api/user/logout)
+[comment]: <> "- URL: /v1/api/user/logout"
 
-[comment]: <> (- Method: DELETE)
+[comment]: <> "- Method: DELETE"
 
-[comment]: <> (- Request Body)
+[comment]: <> "- Request Body"
 
-[comment]: <> (| key   | value             |)
+[comment]: <> "| key   | value             |"
 
-[comment]: <> (| ----- | ----------------- |)
+[comment]: <> "| ----- | ----------------- |"
 
-[comment]: <> (| email | 2101917115@qq.com |)
+[comment]: <> "| email | 2101917115@qq.com |"
 
-[comment]: <> (- Response Body)
+[comment]: <> "- Response Body"
 
-[comment]: <> (```json)
+[comment]: <> "```json"
 
-[comment]: <> ({)
+[comment]: <> "{"
 
-[comment]: <> (    "code": 200,)
+[comment]: <> "    "code": 200,"
 
-[comment]: <> (    "msg": {)
+[comment]: <> "    "msg": {"
 
-[comment]: <> (        "detail": "成功")
+[comment]: <> "        "detail": "成功""
 
-[comment]: <> (    })
+[comment]: <> "    }"
 
-[comment]: <> (})
+[comment]: <> "}"
 
-[comment]: <> (```)
+[comment]: <> "```"
 
-[comment]: <> (| 序号 | 参数  | 类型        | 简介       |)
+[comment]: <> "| 序号 | 参数  | 类型        | 简介       |"
 
-[comment]: <> (| ---- | ----- | ----------- | ---------- |)
+[comment]: <> "| ---- | ----- | ----------- | ---------- |"
 
-[comment]: <> (| 1    | email | varchar&#40;33&#41; | 用户的邮箱 |)
+[comment]: <> "| 1    | email | varchar&#40;33&#41; | 用户的邮箱 |"
 
 
 
@@ -316,3 +316,32 @@
 | 序号 | 参数 | 类型 | 简介         |
 | ---- | ---- | ---- | ------------ |
 | 1    | id   | int  | 辩论场次的id |
+
+返回状态码表
+
+| 参数名               | 数字码 | 简介               |
+| -------------------- | ------ | ------------------ |
+| Success              | 200    | 成功               |
+| Error                | 500    | 失败               |
+| InvalidToken         | 1001   | 非法的token        |
+| TokenNotExist        | 1002   | token错误          |
+| TokenError           | 1003   | 请求头中的auth为空 |
+| AuthEmpty            | 1004   | token不存在        |
+| TokenRunTimeError    | 1005   | token过期          |
+| ErrRequest           | 2001   | 请求错误           |
+| ErrParameter         | 2002   | 请求参数错误       |
+| ErrInfoNotFound      | 3001   | 未查找到相关信息   |
+| ErrDatabaseFound     | 3002   | 数据库查找错误     |
+| ErrRedisCached       | 3003   | redis存储错误      |
+| ErrUserNameUsed      | 4001   | 用户名已存在       |
+| ErrUserEmailUsed     | 4002   | 用户邮箱已存在     |
+| ErrUserPhoneUsed     | 4003   | 用户电话已存在     |
+| ErrPassword          | 4004   | 用户密码错误       |
+| ErrPhoneNotExist     | 4005   | 号码不存在         |
+| ErrPasswordDifferent | 4006   | 密码不一致         |
+| ErrEmailNotExist     | 4007   | 邮箱不存在         |
+| ErrEmailCode         | 5001   | 邮箱验证码错误     |
+
+通信原理图：
+![img.png](photo/img.png)
+在socket通信服务端设置一个注册服务中心，一个广播中心，服务中心用于注册匹配进来的客户，通过广播中心进行一个消息的传递。
