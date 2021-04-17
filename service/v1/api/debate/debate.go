@@ -5,7 +5,6 @@ import (
 	"github.com/Peterliang233/debate/errmsg"
 	"github.com/Peterliang233/debate/model"
 	"github.com/garyburd/redigo/redis"
-	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
 	"time"
@@ -57,12 +56,39 @@ func GetRedisHashRecord(id string) (interface{}, int, int) {
 	return result, http.StatusOK, errmsg.Success
 }
 
-//获取未开始的辩论
-func GetFutureDebates(c *gin.Context) {
 
+
+func UpdatePositive(content * model.DebateContent) (StatusCode, code int){
+	//var user model.User
+	////获取用户id
+	//if err := dao.Db.Table("user").Where("username = ?", content.NegativeUsername).
+	//	First(&user).Error; err != nil {
+	//	return http.StatusInternalServerError, errmsg.Error
+	//}
+	if err := dao.Db.Table("debate").Where("title = ?", content.Title).
+		Update("positive_username", content.PositiveUsername).Error; err != nil {
+		return http.StatusInternalServerError, errmsg.Error
+	}
+	return http.StatusOK, errmsg.Success
 }
 
-//获取已开始的辩论
-func GetLastDebate(c *gin.Context) {
+func UpdateNegative(content * model.DebateContent) (StatusCode, code int){
+	//var user model.User
+	////获取用户id
+	//if err := dao.Db.Table("user").Where("username = ?", content.NegativeUsername).
+	//	First(&user).Error; err != nil {
+	//	return http.StatusInternalServerError, errmsg.Error
+	//}
+	if err := dao.Db.Table("debate").Where("title = ?", content.Title).
+		Update("negative_username", content.NegativeUsername).Error; err != nil {
+		return http.StatusInternalServerError, errmsg.Error
+	}
+	return http.StatusOK, errmsg.Success
+}
 
+func GetRecords(records []model.DebateContent) (statusCode, code int) {
+	if err := dao.Db.Find(&records).Error; err != nil {
+		return http.StatusInternalServerError, errmsg.Error
+	}
+	return http.StatusOK, errmsg.Success
 }

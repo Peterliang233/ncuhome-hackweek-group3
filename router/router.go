@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/Peterliang233/debate/config"
 	"github.com/Peterliang233/debate/middlerware"
-	debate "github.com/Peterliang233/debate/router/v1/api/socket"
+	debate "github.com/Peterliang233/debate/router/v1/api/debate"
 	"github.com/Peterliang233/debate/router/v1/api/user"
 	"github.com/Peterliang233/debate/router/v1/api/user/login"
 	"github.com/Peterliang233/debate/service/v1/api/socket"
@@ -79,12 +79,16 @@ func InitRouter() *gin.Engine{
 			V1User.PUT("/pwd", user.UpdatePassword)  //修改用户的密码
 			V1User.DELETE("/logout", login.Logout)         //登出
 		}
-		//通信组
-		V1Debate := v1Group.Group("/socket")
+		//辩论组
+		V1Debate := v1Group.Group("/debate")
 		{
-			V1Debate.POST("/debate", debate.OneToOneDebate) //发送辩论记录
-			V1Debate.GET("/debate/:id", debate.GetDebate)   //获取单个辩论记录
-			V1Debate.GET("/debate")   //获取所有辩论记录
+			V1Debate.POST("/one", debate.OneToOneDebate)  //发送辩论记录
+			V1Debate.GET("/record/:id", debate.GetRecord) //获取单个辩论记录
+			V1Debate.GET("/records", debate.GetRecords)    //获取所有辩论记录
+			V1Debate.GET("/records/last")  //获取完成的辩论场
+			V1Debate.GET("/records/future")  //获取将来的辩论场
+			V1Debate.POST("/pos", debate.ChosePositive)   //选择正方
+			V1Debate.POST("/neg", debate.ChoseNegative)   //选择反方
 		}
 		//通信组
 		router.GET("/ws", func(c *gin.Context){  //socket通信接口

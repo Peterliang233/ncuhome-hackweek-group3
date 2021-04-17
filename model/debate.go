@@ -22,9 +22,9 @@ type DebateMysql struct {
 
 //辩论的情况
 type DebateContent struct {
-	Title string  `gorm:"type:varchar(100);not null" json:"title" label:"辩题"`
-	Positive string `gorm:"type:varchar(20);"`
-	Negative string
+	Title            string `gorm:"type:varchar(100);not null" json:"title" label:"辩题"`
+	PositiveUsername string `gorm:"type:varchar(20);" json:"positive_username"`
+	NegativeUsername string `gorm:"type:varchar(20);" json:"negative_username"`
 }
 
 

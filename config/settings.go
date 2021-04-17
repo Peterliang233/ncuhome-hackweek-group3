@@ -64,7 +64,7 @@ func init() {
 	mapTo("database", DatabaseSetting)
 	mapTo("email", EmailSetting)
 	mapTo("redis", RedisSetting)
-	mapTo("socket", SocketSetting)
+	mapTo("debate", SocketSetting)
 }
 
 func mapTo(s string, i interface{}){
