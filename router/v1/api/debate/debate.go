@@ -1,6 +1,8 @@
 package debate
 
 import (
+	"fmt"
+	"github.com/Peterliang233/debate/dao"
 	"github.com/Peterliang233/debate/errmsg"
 	"github.com/Peterliang233/debate/model"
 	debate2 "github.com/Peterliang233/debate/service/v1/api/debate"
@@ -14,6 +16,7 @@ func OneToOneDebate(c *gin.Context) {
 	var debate model.DebateRedis
 	err := c.ShouldBind(&debate)
 	if err != nil {
+		fmt.Println(err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{
 			"code": errmsg.Error,
 			"msg": map[string]interface{}{
@@ -22,7 +25,6 @@ func OneToOneDebate(c *gin.Context) {
 		})
 		return
 	}
-
 	StatusCode, code := debate2.CreateRecord(&debate)
 	c.JSON(StatusCode, gin.H{
 		"code": code,
@@ -49,8 +51,9 @@ func GetRecord(c *gin.Context) {
 
 //获取所有的辩论记录
 func GetRecords(c *gin.Context) {
-	var records []model.DebateContent
-	statusCode, code := debate2.GetRecords(records)
+	var page model.Page
+	_ = c.ShouldBind(&page)
+	records, statusCode, code := debate2.GetRecords(page)
 	c.JSON(statusCode, gin.H{
 		"code": code,
 		"msg": map[string]interface{}{
@@ -109,7 +112,10 @@ func ChoseNegative(c *gin.Context) {
 
 //获取未开始的辩论
 func GetFutureDebates(c *gin.Context) {
+	var records []model.DebateContent
+	if err := dao.Db.Table("debate").Order("CreateAt").Find(&records).Error; err != nil {
 
+	}
 }
 
 //获取已开始的辩论

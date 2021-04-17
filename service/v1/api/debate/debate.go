@@ -1,10 +1,12 @@
 package debate
 
 import (
+	"fmt"
 	"github.com/Peterliang233/debate/dao"
 	"github.com/Peterliang233/debate/errmsg"
 	"github.com/Peterliang233/debate/model"
 	"github.com/garyburd/redigo/redis"
+	"log"
 	"net/http"
 	"strconv"
 	"time"
@@ -15,6 +17,7 @@ import (
 func CreateRecord(debate * model.DebateRedis) (int,int) {
 	debateId, err := redis.Int(dao.Conn.Do("incr", "debateId"))  //记录下辩论的总场次
 	if err != nil {
+		log.Fatalf(err.Error())
 		return http.StatusInternalServerError, errmsg.Error
 	}
 
@@ -26,9 +29,10 @@ func CreateRecord(debate * model.DebateRedis) (int,int) {
 
 	//将场次信息存储在mysql里面
 	if err := dao.Db.Table("debate").Create(&deb).Error; err != nil {
+		fmt.Print(err)
 		return http.StatusInternalServerError, errmsg.Error
 	}
-	now := time.Now().Unix()
+	now := time.Now().Format("2006-01-02 15:04:05")
 
 	//存储redis
 	_, err = dao.Conn.Do(
@@ -42,16 +46,38 @@ func CreateRecord(debate * model.DebateRedis) (int,int) {
 			"time", now,
 	)
 	if err != nil {
+		fmt.Println(err)
 		return http.StatusInternalServerError, errmsg.Error
 	}
 	return http.StatusOK, errmsg.Success
 }
 
 //通过id获取某一个场次的辩论记录
-func GetRedisHashRecord(id string) (interface{}, int, int) {
-	result, err := redis.Values(dao.Conn.Do("HGETALL", id))
+func GetRedisHashRecord(id string) (map[string]string, int, int) {
+	resKey, err := redis.Values(dao.Conn.Do("hkeys", id))
 	if err != nil {
+		fmt.Println("hkeys failed", err.Error())
 		return nil, http.StatusInternalServerError, errmsg.Error
+	}
+	resValue, err := redis.Values(dao.Conn.Do("hvals", id))
+	if err != nil {
+		fmt.Println("hvals failed", err.Error())
+		return nil, http.StatusInternalServerError, errmsg.Error
+	}
+	var s1,s2 []string
+	for _, v := range resKey {
+		s1 = append(s1, string(v.([]byte)))
+		//fmt.Printf("%s", v.([]byte))
+	}
+	for _, v := range resValue {
+		s2 = append(s2, string(v.([]byte)))
+		//fmt.Printf("%s", v.([]byte))
+	}
+
+
+	result := make(map[string]string)
+	for i := 0; i < len(s1); i ++ {
+		result[s1[i]] = s2[i]
 	}
 	return result, http.StatusOK, errmsg.Success
 }
@@ -86,9 +112,19 @@ func UpdateNegative(content * model.DebateContent) (StatusCode, code int){
 	return http.StatusOK, errmsg.Success
 }
 
-func GetRecords(records []model.DebateContent) (statusCode, code int) {
-	if err := dao.Db.Find(&records).Error; err != nil {
-		return http.StatusInternalServerError, errmsg.Error
+
+//分页展示
+func GetRecords(page model.Page) (records []model.DebateContent, statusCode, code int) {
+	if err := dao.Db.Table("debate").
+		Limit(page.PageSize).Offset((page.PageNum-1)*page.PageSize).
+		Find(&records).Error; err != nil {
+		return nil, http.StatusInternalServerError, errmsg.Error
 	}
-	return http.StatusOK, errmsg.Success
+	return records, http.StatusOK, errmsg.Success
 }
+
+//func GetRecordsByTime(page model.Page) (records []model.DebateContent, statusCode, code int) {
+//	if err := dao.Db.Table("debate").Order("CreateAt").Error; err != nil {
+//
+//	}
+//}

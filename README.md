@@ -252,24 +252,18 @@
 - Response Body
 ```json
 {
-    "code": 200,
-    "msg": {
-        "data": [
-            "dGl0bGU=",
-            "6Zi/5be06Zi/5be06Zi/5be0",
-            "cG9zaXRpdmVfY29udGVudA==",
-            "5oiR5piv6Zi/5be06Zi/5be06Zi/5be0",
-            "bmVnYXRpdmVfY29udGVudA==",
-            "5oiR5LiN5piv6Zi/5be06Zi/5be06Zi/5be0",
-            "eWlk",
-            "MQ==",
-            "bmlk",
-            "Mg==",
-            "dGltZQ==",
-            "MTYxODYxODYyNA=="
-        ],
-        "detail": "成功"
-    }
+  "code": 200,
+  "msg": {
+    "data": {
+      "negative_content": "我不是阿巴阿巴阿巴",
+      "nid": "2",
+      "positive_content": "我是阿巴阿巴阿巴",
+      "time": "2021-04-17 23:59:23",
+      "title": "阿巴阿巴阿巴",
+      "yid": "1"
+    },
+    "detail": "成功"
+  }
 }
 ```
 
@@ -277,7 +271,6 @@
 | ---- | ---- | ---- | ------------ |
 | 1    | id   | int  | 辩论场次的id |
 
-<<<<<<< HEAD
 ### 获取所有辩论记录
 - URL: /v1/api/debate/records 
 - Method: GET

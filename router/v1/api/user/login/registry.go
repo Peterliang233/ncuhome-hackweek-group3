@@ -79,11 +79,7 @@ func Registry(c *gin.Context) {
 
 //获取邮箱验证码
 type email struct{
-<<<<<<< HEAD
 	Email string `json:"email"`
-=======
-	Email string  `json:"email"`
->>>>>>> 98b1ce7affda920fbace65bf09d01e695060c99a
 }
 func GetEmailCode(c *gin.Context) {
 	var code int
