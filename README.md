@@ -3,13 +3,16 @@
 ## api文档
 - [API 文档](#api文档)
     + [basic Response Body]
-- [1.用户登录](#用户注册)
-- [2.用户注册](#用户登录)
+- [1.用户登录](#用户登录)
+- [2.用户注册](#用户注册)
 - [3.邮箱验证](#邮箱验证)  
 - [4.退出登录](#退出登录)  
 - [5.修改用户信息](#修改用户信息)
 - [6.修改用户密码](#修改用户密码)  
 - [7.上传用户头像](#上传用户头像)
+- [8.查看用户自身信息](#查看用户自身信息)  
+- [9.接收辩论场次具体数据](#接收辩论场次具体数据)
+- [10.查询辩论场次的数据](#查询辩论场次的数据)
 
 
 ### 用户登录
@@ -74,9 +77,9 @@
 - URL: v1/api/verify
 - Method: POST
 - Request Body
-```json
-"email": "123456@qq.com"
-```
+| key   | value         |
+| ----- | ------------- |
+| email | 123456@qq.com |
 
 - Response Body
 ```json
@@ -93,9 +96,10 @@
 - URL: /v1/api/user/logout
 - Method: DELETE
 - Request Body
-```json
-"email":"2101917115@qq.com"
-```
+| key   | value             |
+| ----- | ----------------- |
+| email | 2101917115@qq.com |
+
 - Response Body
 ```json
 {
@@ -141,7 +145,7 @@
 
 
 
-### 获取用户信息
+### 查看用户自身信息
 
 - URL:/v1/api/user/info
 - Method: GET
@@ -211,3 +215,59 @@
 | 3    | new_password       | varchar(30) | 用户的新密码     |
 | 4    | check_new_password | varchar(30) | 确认用户的新密码 |
 
+
+### 接收辩论场次具体数据
+
+- URL:/v1/api/socket/debate
+- Method: POST
+- Request Body
+```json
+{
+    "yid": 1,
+    "nid": 2,
+    "title":"阿巴阿巴阿巴",
+    "negative_content": "我不是阿巴阿巴阿巴",
+    "positive_content": "我是阿巴阿巴阿巴"
+}
+```
+- Response Body
+```json
+{
+    "code": 200,
+    "msg": {
+        "detail": "成功"
+    }
+}
+```
+
+### 查询辩论场次的数据
+- URL: v1/api/socket/debate/:id
+- Method: GET
+- Request Body
+| key  | value |
+| ---- | ----- |
+| id   | 1     |
+
+- Response Body
+```json
+{
+    "code": 200,
+    "msg": {
+        "data": [
+            "dGl0bGU=",
+            "6Zi/5be06Zi/5be06Zi/5be0",
+            "cG9zaXRpdmVfY29udGVudA==",
+            "5oiR5piv6Zi/5be06Zi/5be06Zi/5be0",
+            "bmVnYXRpdmVfY29udGVudA==",
+            "5oiR5LiN5piv6Zi/5be06Zi/5be06Zi/5be0",
+            "eWlk",
+            "MQ==",
+            "bmlk",
+            "Mg==",
+            "dGltZQ==",
+            "MTYxODYxODYyNA=="
+        ],
+        "detail": "成功"
+    }
+}
+```
