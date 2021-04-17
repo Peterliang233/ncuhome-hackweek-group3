@@ -24,6 +24,7 @@ type UserInfo struct {
 type Login struct {
 	Email    string `json:"email" validate:"required,email" label:"邮箱"`
 	Password string `json:"password" validate:"required,min=6,max=18" label:"用户密码"`
+	RememberPassword bool `json:"remember_password"`
 }
 
 type UpdateNewPassword struct {

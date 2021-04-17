@@ -21,8 +21,9 @@
 
 ```json
 {
-    "email": "2107917115@qq.com",
-    "password": "3607812001lyp"
+  "email": "12345@qq.com",
+  "password": "3607812001lyp",
+  "remember_password": false
 }
 ```
 
@@ -78,9 +79,11 @@
 - Method: POST
 - Request Body
 
-| key   | value         |
-| ----- | ------------- |
-| email | 123456@qq.com |
+```bigquery
+{
+"email": "12345@qq.com"
+}
+```
 
 - Response Body
 ```json

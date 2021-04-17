@@ -56,7 +56,11 @@ func Login(c *gin.Context) {
 		if err != nil {
 			log.Println("set token error:", err)
 		}
-		_, err = dao.Conn.Do("expire", login.Email + "token", 7200)  //放到redis里面缓存分120钟
+		time := 86400
+		if login.RememberPassword {  //记住密码保持七天内登录
+			time = 604800
+		}
+		_, err = dao.Conn.Do("expire", login.Email + "token", time)
 		if err != nil {
 			log.Println("set expire error: ", err)
 		}

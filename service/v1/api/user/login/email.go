@@ -23,9 +23,11 @@ func SendEmail(Email string) (string, int) {
 	e.Text = []byte("              注册验证通知\n您好！\n您的邮箱在" +
 		time.Now().Format("2006-01-02 15:04:05") +
 		"被用于注册\"来辩\"\n验证码为："+code +"\n五分钟内有效.")
+	//阿里云端口被封
 	err := e.Send(config.EmailSetting.Addr, smtp.PlainAuth("", config.EmailSetting.Username,
 		config.EmailSetting.Password, config.EmailSetting.Host))
 	if err != nil {
+		log.Fatal(err)
 		return "", errmsg.Error
 	}
 	return code, errmsg.Success

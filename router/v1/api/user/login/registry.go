@@ -78,17 +78,17 @@ func Registry(c *gin.Context) {
 
 
 //获取邮箱验证码
-type Email struct{
-	email string
+type email struct{
+	Email string  `json:"email"`
 }
 func GetEmailCode(c *gin.Context) {
 	var code int
-	var e Email
+	var e email
 	_ = c.ShouldBind(&e)
 	//fmt.Printf(email)
 	//发送邮箱验证码
 	var emailCode string
-	emailCode, code = Service.SendEmail(e.email)
+	emailCode, code = Service.SendEmail(e.Email)
 	if code != errmsg.Success {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"code": code,
@@ -97,7 +97,7 @@ func GetEmailCode(c *gin.Context) {
 			},
 		})
 	}else{
-		if !Service.SetRedis(e.email, emailCode) {  //将生成的验证码保存在redis缓存里面
+		if !Service.SetRedis(e.Email, emailCode) {  //将生成的验证码保存在redis缓存里面
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"code": errmsg.ErrRedisCached,
 				"msg": map[string]interface{}{
