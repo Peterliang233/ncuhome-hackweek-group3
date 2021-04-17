@@ -77,6 +77,7 @@
 - URL: v1/api/verify
 - Method: POST
 - Request Body
+
 | key   | value         |
 | ----- | ------------- |
 | email | 123456@qq.com |
@@ -97,6 +98,7 @@
 - URL: /v1/api/user/logout
 - Method: DELETE
 - Request Body
+
 | key   | value             |
 | ----- | ----------------- |
 | email | 2101917115@qq.com |
@@ -261,6 +263,7 @@
 - URL: v1/api/socket/debate/:id
 - Method: GET
 - Request Body
+
 | key  | value |
 | ---- | ----- |
 | id   | 1     |
