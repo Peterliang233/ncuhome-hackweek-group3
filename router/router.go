@@ -77,7 +77,7 @@ func InitRouter() *gin.Engine{
 			V1User.POST("/upload", user.UpdatePhoto) //上传图片
 			V1User.PUT("/info", user.UpdateUser)     //修改用户信息
 			V1User.PUT("/pwd", user.UpdatePassword)  //修改用户的密码
-			V1User.DELETE("/logout", login.Logout)         //登出
+			//V1User.DELETE("/logout", login.Logout)         //登出
 		}
 		//辩论组
 		V1Debate := v1Group.Group("/debate")

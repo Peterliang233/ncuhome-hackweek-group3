@@ -4,14 +4,20 @@
 - [API 文档](#api文档)
 - [1.用户登录](#用户登录)
 - [2.用户注册](#用户注册)
-- [3.邮箱验证](#邮箱验证)  
-- [4.退出登录](#退出登录)  
-- [5.修改用户信息](#修改用户信息)
-- [6.修改用户密码](#修改用户密码)  
-- [7.上传用户头像](#上传用户头像)
-- [8.查看用户自身信息](#查看用户自身信息)  
-- [9.接收辩论场次具体数据](#接收辩论场次具体数据)
-- [10.查询辩论场次的数据](#查询辩论场次的数据)
+- [3.邮箱验证](#邮箱验证)
+- [4.修改用户信息](#修改用户信息)
+- [5.修改用户密码](#修改用户密码)  
+- [6.上传用户头像](#上传用户头像)
+- [7.查看用户自身信息](#查看用户自身信息)  
+- [8.接收辩论场次具体数据](#接收辩论场次具体数据)
+- [9.查询辩论场次的数据](#查询辩论场次的数据)
+- [10.查询所有辩论的数据](#查询所有辩论的数据)
+- [11.获取完成的辩论场](#获取完成的辩论场)
+- [12.获取将来的辩论场](#获取将来的辩论场)
+- [13.选择正方](#选择正方)
+- [14.选择反方](#选择反方)
+- [返回状态码表](#返回状态码表)
+- [通信原理图](#通信原理图)
 
 
 ### 用户登录
@@ -77,46 +83,25 @@
 - URL: v1/api/verify
 - Method: POST
 - Request Body
-```bigquery
+```json
 {
-"username": "123456@qq.com"
+  "username": "123456@qq.com"
 }
 ```
 - Response Body
 ```json
 {
-    "msg": "651169"
+  "code": 200,
+  "msg": {
+    "detail": "成功",
+    "email_code": "828208"
+  }
 }
 ```
 | 序号 | 参数  | 类型        | 简介         |
 | ---- | ----- | ----------- | ------------ |
 | 1    | email | varchar(33) | 用户的邮箱   |
 | 2    | msg   | string      | 发送的验证码 |
-
-### 退出登录
-
-- URL: /v1/api/user/logout
-- Method: DELETE
-- Request Body
-
-| key   | value             |
-| ----- | ----------------- |
-| email | 2101917115@qq.com |
-
-- Response Body
-```json
-{
-    "code": 200,
-    "msg": {
-        "detail": "成功"
-    }
-}
-```
-| 序号 | 参数  | 类型        | 简介       |
-| ---- | ----- | ----------- | ---------- |
-| 1    | email | varchar(33) | 用户的邮箱 |
-
-
 
 ### 修改用户信息
 
@@ -228,7 +213,7 @@
 
 ### 接收辩论场次具体数据
 
-- URL:/v1/api/socket/debate
+- URL:/v1/api/socket/one
 - Method: POST
 - Request Body
 ```json
@@ -260,7 +245,7 @@
 
 ### 查询辩论场次的数据
 
-- URL: v1/api/socket/debate/:id
+- URL: v1/api/socket/record/:id
 - Method: GET
 - Request Body
 
@@ -295,3 +280,89 @@
 | 序号 | 参数 | 类型 | 简介         |
 | ---- | ---- | ---- | ------------ |
 | 1    | id   | int  | 辩论场次的id |
+
+### 获取所有辩论记录
+- URL: /v1/api/debate/records 
+- Method: GET
+- Request Body
+```json
+
+```
+- Response Body
+```json
+
+```
+
+### 获取完成的辩论场
+- URL: /v1/api/debate/records/last
+- Method: GET
+- Response Body
+```json
+
+```
+- Response Body
+```json
+
+```
+
+### 获取将来的辩论场
+- URL: /v1/api/debate/records/future
+- Method: GET
+- Response Body
+```json
+
+```
+-Request Body
+```json
+
+```
+### 选择正方
+- URL: /v1/api/debate/pos
+- Method: POST
+- Request Body
+```json
+
+```
+- Response Body
+```json
+
+```
+### 选择反方
+- URL: /v1/api/debate/neg
+- Method: POST
+- Request Body
+```json
+
+```
+- Response Body
+```json
+
+```
+### 返回状态码表
+
+| 参数名               | 数字码 | 简介               |
+| -------------------- | ------ | ------------------ |
+| Success              | 200    | 成功               |
+| Error                | 500    | 失败               |
+| InvalidToken         | 1001   | 非法的token        |
+| TokenNotExist        | 1002   | token错误          |
+| TokenError           | 1003   | 请求头中的auth为空 |
+| AuthEmpty            | 1004   | token不存在        |
+| TokenRunTimeError    | 1005   | token过期          |
+| ErrRequest           | 2001   | 请求错误           |
+| ErrParameter         | 2002   | 请求参数错误       |
+| ErrInfoNotFound      | 3001   | 未查找到相关信息   |
+| ErrDatabaseFound     | 3002   | 数据库查找错误     |
+| ErrRedisCached       | 3003   | redis存储错误      |
+| ErrUserNameUsed      | 4001   | 用户名已存在       |
+| ErrUserEmailUsed     | 4002   | 用户邮箱已存在     |
+| ErrUserPhoneUsed     | 4003   | 用户电话已存在     |
+| ErrPassword          | 4004   | 用户密码错误       |
+| ErrPhoneNotExist     | 4005   | 号码不存在         |
+| ErrPasswordDifferent | 4006   | 密码不一致         |
+| ErrEmailNotExist     | 4007   | 邮箱不存在         |
+| ErrEmailCode         | 5001   | 邮箱验证码错误     |
+
+### 通信原理图
+
+在socket通信服务端设置一个注册服务中心，一个广播中心，服务中心用于注册匹配进来的客户，通过广播中心进行一个消息的传递。
