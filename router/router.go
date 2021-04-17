@@ -4,9 +4,10 @@ import (
 	"context"
 	"github.com/Peterliang233/debate/config"
 	"github.com/Peterliang233/debate/middlerware"
+	debate "github.com/Peterliang233/debate/router/v1/api/socket"
 	"github.com/Peterliang233/debate/router/v1/api/user"
 	"github.com/Peterliang233/debate/router/v1/api/user/login"
-	debate "github.com/Peterliang233/debate/router/v1/api/socket"
+	"github.com/Peterliang233/debate/service/v1/api/socket"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -65,6 +66,8 @@ func InitRouter() *gin.Engine{
 	v1Group.POST("/registry", login.Registry)
 	v1Group.POST("/verify", login.GetEmailCode)  //注册时点击获取邮箱验证码
 	//api := v1Group.Group("/api")
+	hub := socket.NewHub()
+	go hub.Run()
 	v1Group.Use(middlerware.JWTAuthMiddleware())
 	{
 		//用户组
@@ -81,7 +84,11 @@ func InitRouter() *gin.Engine{
 		{
 			V1Socket.POST("/debate", debate.OneToOneDebate)  //发送辩论记录
 			V1Socket.GET("/debate/:id", debate.GetDebate)  //获取单个辩论记录
+			router.GET("/ws", func(c *gin.Context){  //socket通信接口
+				socket.ServeWs(hub, c)
+			})
 		}
 	}
+
 	return router
 }

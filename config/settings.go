@@ -42,15 +42,15 @@ type redis struct {
 
 var RedisSetting = &redis{}
 
-type Socket struct {
-	WriteWait int
-	PongWait int
-	MaxMessageSize int
+type socket struct {
+	MaxMessageSize int64
 	ReadBufferSize int
 	WriteBufferSize int
+	WriteWait time.Duration
+	PongWait time.Duration
 }
 
-var SocketSetting = &Socket{}
+var SocketSetting = &socket{}
 
 var cfg *ini.File
 

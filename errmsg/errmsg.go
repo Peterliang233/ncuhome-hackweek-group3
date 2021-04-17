@@ -14,7 +14,7 @@ const (
 
 	//请求类错误
 	ErrRequest = 2001
-
+	ErrParameter = 2002
 	//查询数据库类错误
 	ErrInfoNotFound = 3001
 	ErrDatabaseFound = 3002
@@ -44,6 +44,7 @@ var CodeMsg = map[int]string{
 
 
 	ErrRequest: "请求错误",
+	ErrParameter: "请求参数错误",
 
 	ErrInfoNotFound: "未查找到相关信息",
 	ErrDatabaseFound: "数据库查找错误",

@@ -14,3 +14,9 @@ type DebateMysql struct {
 	Yid int32 `gorm:"type:int;not null" json:"yid" label:"正方id"`
 	Nid int32 `gorm:"type:int;not null" json:"nid" label:"反方id"`
 }
+
+type DebateRequest struct {
+	RoomID string `json:"room_id"`
+	UserID string `json:"user_id"`
+	UseName string `json:"use_name"`
+}
