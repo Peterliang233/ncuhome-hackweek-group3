@@ -21,14 +21,18 @@ func Login(c *gin.Context) {
 	if code != errmsg.Success {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"code": code,
-			"msg": msg,
+			"msg": map[string]interface{}{
+				"detail": msg,
+			},
 		})
 		return
 	}
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"code": errmsg.ErrRequest,
-			"detail": errmsg.CodeMsg[errmsg.ErrRequest],
+			"msg": map[string]interface{}{
+				"detail": errmsg.CodeMsg[errmsg.ErrRequest],
+			},
 		})
 		return
 	}
@@ -52,7 +56,11 @@ func Login(c *gin.Context) {
 		if err != nil {
 			log.Println("set token error:", err)
 		}
-		_, err = dao.Conn.Do("expire", login.Email + "token", 7200)  //放到redis里面缓存分120钟
+		time := 86400
+		if login.RememberPassword {  //记住密码保持七天内登录
+			time = 604800
+		}
+		_, err = dao.Conn.Do("expire", login.Email + "token", time)
 		if err != nil {
 			log.Println("set expire error: ", err)
 		}
