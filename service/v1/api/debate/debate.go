@@ -1,10 +1,11 @@
-package socket
+package debate
 
 import (
 	"github.com/Peterliang233/debate/dao"
 	"github.com/Peterliang233/debate/errmsg"
 	"github.com/Peterliang233/debate/model"
 	"github.com/garyburd/redigo/redis"
+	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
 	"time"
@@ -47,11 +48,21 @@ func CreateRecord(debate * model.DebateRedis) (int,int) {
 	return http.StatusOK, errmsg.Success
 }
 
-
+//通过id获取某一个场次的辩论记录
 func GetRedisHashRecord(id string) (interface{}, int, int) {
 	result, err := redis.Values(dao.Conn.Do("HGETALL", id))
 	if err != nil {
 		return nil, http.StatusInternalServerError, errmsg.Error
 	}
 	return result, http.StatusOK, errmsg.Success
+}
+
+//获取未开始的辩论
+func GetFutureDebates(c *gin.Context) {
+
+}
+
+//获取已开始的辩论
+func GetLastDebate(c *gin.Context) {
+
 }

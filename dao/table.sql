@@ -13,7 +13,7 @@ CREATE TABLE user (
 );
 INSERT INTO user VALUES (1,1,'peterliang','ULwH1CwT3mCPMQ==','123456789','12345@qq.com','',1,0);
 
-
+# 记录辩论的双方
 CREATE TABLE debate (
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     yid INT UNSIGNED NOT NULL,

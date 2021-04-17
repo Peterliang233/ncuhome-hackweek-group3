@@ -26,6 +26,7 @@ func SendEmail(Email string) (string, int) {
 	err := e.Send(config.EmailSetting.Addr, smtp.PlainAuth("", config.EmailSetting.Username,
 		config.EmailSetting.Password, config.EmailSetting.Host))
 	if err != nil {
+		log.Fatal(err)
 		return "", errmsg.Error
 	}
 	return code, errmsg.Success

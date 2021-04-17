@@ -3,7 +3,7 @@ package socket
 import (
 	"github.com/Peterliang233/debate/errmsg"
 	"github.com/Peterliang233/debate/model"
-	chat "github.com/Peterliang233/debate/service/v1/api/socket"
+	debate2 "github.com/Peterliang233/debate/service/v1/api/debate"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -23,7 +23,7 @@ func OneToOneDebate(c *gin.Context) {
 		return
 	}
 
-	StatusCode, code := chat.CreateRecord(&debate)
+	StatusCode, code := debate2.CreateRecord(&debate)
 	c.JSON(StatusCode, gin.H{
 		"code": code,
 		"msg": map[string]interface{}{
@@ -37,7 +37,7 @@ func OneToOneDebate(c *gin.Context) {
 //通过id获取辩论记录
 func GetDebate(c *gin.Context) {
 	id := c.Param("id")
-	result, StatusCode, code := chat.GetRedisHashRecord(id)
+	result, StatusCode, code := debate2.GetRedisHashRecord(id)
 	c.JSON(StatusCode, gin.H{
 		"code": code,
 		"msg": map[string]interface{}{
@@ -45,4 +45,14 @@ func GetDebate(c *gin.Context) {
 			"data": result,
 		},
 	})
+}
+
+//选择正方
+func ChosePositive(c *gin.Context) {
+
+}
+
+//选择反方
+func ChoseNegative(c *gin.Context) {
+
 }

@@ -77,11 +77,11 @@
 - URL: v1/api/verify
 - Method: POST
 - Request Body
-
-| key   | value         |
-| ----- | ------------- |
-| email | 123456@qq.com |
-
+```bigquery
+{
+"username": "123456@qq.com"
+}
+```
 - Response Body
 ```json
 {

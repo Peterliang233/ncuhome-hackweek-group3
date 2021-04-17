@@ -80,14 +80,16 @@ func InitRouter() *gin.Engine{
 			V1User.DELETE("/logout", login.Logout)         //登出
 		}
 		//通信组
-		V1Socket := v1Group.Group("/socket")
+		V1Debate := v1Group.Group("/socket")
 		{
-			V1Socket.POST("/debate", debate.OneToOneDebate)  //发送辩论记录
-			V1Socket.GET("/debate/:id", debate.GetDebate)  //获取单个辩论记录
-			router.GET("/ws", func(c *gin.Context){  //socket通信接口
-				socket.ServeWs(hub, c)
-			})
+			V1Debate.POST("/debate", debate.OneToOneDebate) //发送辩论记录
+			V1Debate.GET("/debate/:id", debate.GetDebate)   //获取单个辩论记录
+			V1Debate.GET("/debate")   //获取所有辩论记录
 		}
+		//通信组
+		router.GET("/ws", func(c *gin.Context){  //socket通信接口
+			socket.ServeWs(hub, c)
+		})
 	}
 
 	return router
