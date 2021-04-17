@@ -11,7 +11,6 @@
 - [7.查看用户自身信息](#查看用户自身信息)  
 - [8.接收辩论场次具体数据](#接收辩论场次具体数据)
 - [9.查询辩论场次的数据](#查询辩论场次的数据)
-<<<<<<< HEAD
 - [10.查询所有辩论的数据](#查询所有辩论的数据)
 - [11.获取完成的辩论场](#获取完成的辩论场)
 - [12.获取将来的辩论场](#获取将来的辩论场)
@@ -19,11 +18,6 @@
 - [14.选择反方](#选择反方)
 - [返回状态码表](#返回状态码表)
 - [通信原理图](#通信原理图)
-
-=======
-- [返回状态码表](#返回状态码表)
-- [通信原理图](#通信原理图)
->>>>>>> 98b1ce7affda920fbace65bf09d01e695060c99a
 
 ### 用户登录
 - RUL: v1/api/login
@@ -89,7 +83,6 @@
 - URL: v1/api/verify
 - Method: POST
 - Request Body
-<<<<<<< HEAD
 ```json
 {
   "username": "123456@qq.com"
@@ -105,72 +98,6 @@
   }
 }
 ```
-=======
-
-```bigquery
-{
-"email": "12345@qq.com"
-}
-```
-
-- Response Body
-```json
-{
-  "code": 200,
-  "msg": {
-    "detail": "成功",
-    "email_code": "878494"
-  }
-}
-```
->>>>>>> 98b1ce7affda920fbace65bf09d01e695060c99a
-| 序号 | 参数  | 类型        | 简介         |
-| ---- | ----- | ----------- | ------------ |
-| 1    | email | varchar(33) | 用户的邮箱   |
-| 2    | msg   | string      | 发送的验证码 |
-<<<<<<< HEAD
-=======
-
-[comment]: <> "### 退出登录"
-
-[comment]: <> "- URL: /v1/api/user/logout"
-
-[comment]: <> "- Method: DELETE"
-
-[comment]: <> "- Request Body"
-
-[comment]: <> "| key   | value             |"
-
-[comment]: <> "| ----- | ----------------- |"
-
-[comment]: <> "| email | 2101917115@qq.com |"
-
-[comment]: <> "- Response Body"
-
-[comment]: <> "```json"
-
-[comment]: <> "{"
-
-[comment]: <> "    "code": 200,"
-
-[comment]: <> "    "msg": {"
-
-[comment]: <> "        "detail": "成功""
-
-[comment]: <> "    }"
-
-[comment]: <> "}"
-
-[comment]: <> "```"
-
-[comment]: <> "| 序号 | 参数  | 类型        | 简介       |"
-
-[comment]: <> "| ---- | ----- | ----------- | ---------- |"
-
-[comment]: <> "| 1    | email | varchar&#40;33&#41; | 用户的邮箱 |"
-
-
->>>>>>> 98b1ce7affda920fbace65bf09d01e695060c99a
 
 ### 修改用户信息
 
@@ -408,8 +335,7 @@
 ```json
 
 ```
-=======
->>>>>>> 98b1ce7affda920fbace65bf09d01e695060c99a
+
 ### 返回状态码表
 
 | 参数名               | 数字码 | 简介               |
@@ -436,9 +362,5 @@
 | ErrEmailCode         | 5001   | 邮箱验证码错误     |
 
 ### 通信原理图
-<<<<<<< HEAD
-
-=======
 ![img.png](photo/img.png)
->>>>>>> 98b1ce7affda920fbace65bf09d01e695060c99a
 在socket通信服务端设置一个注册服务中心，一个广播中心，服务中心用于注册匹配进来的客户，通过广播中心进行一个消息的传递。
