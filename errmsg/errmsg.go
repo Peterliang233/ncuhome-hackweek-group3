@@ -18,6 +18,7 @@ const (
 	//查询数据库类错误
 	ErrInfoNotFound = 3001
 	ErrDatabaseFound = 3002
+	ErrRedisCached = 3003
 
 	//用户类存在
 	ErrUserNameUsed = 4001
@@ -48,6 +49,7 @@ var CodeMsg = map[int]string{
 
 	ErrInfoNotFound: "未查找到相关信息",
 	ErrDatabaseFound: "数据库查找错误",
+	ErrRedisCached: "redis存储错误",
 
 	ErrUserNameUsed: "用户名已存在",
 	ErrUserEmailUsed: "用户邮箱已存在",
