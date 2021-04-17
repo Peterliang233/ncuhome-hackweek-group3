@@ -110,14 +110,18 @@ func UpdatePassword(c *gin.Context) {
 	if code != errmsg.Success {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"code": code,
-			"msg": msg,
+			"msg":map[string]interface{}{
+				"detail": msg,
+			},
 		})
 		return
 	}
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"code": errmsg.ErrRequest,
-			"detail": errmsg.CodeMsg[errmsg.ErrRequest],
+			"msg": map[string]interface{}{
+				"detail": errmsg.CodeMsg[errmsg.ErrRequest],
+			},
 		})
 		return
 	}

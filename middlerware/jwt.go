@@ -24,7 +24,7 @@ func GenerateToken(email string) (string, int) {
 	Claims := MyClaims{
 		email,
 		jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(2*time.Hour).Unix(), //设置过期时间
+			ExpiresAt: time.Now().Add(144*time.Hour).Unix(), //设置过期时间,七天内有效
 			Issuer:    "peter",                              //设置签发人
 		},
 	}
