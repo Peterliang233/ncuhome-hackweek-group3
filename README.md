@@ -281,9 +281,16 @@
 }
 ```
 
-| 序号 | 参数 | 类型 | 简介         |
-| ---- | ---- | ---- | ------------ |
-| 1    | id   | int  | 辩论场次的id |
+| 序号 | 参数              | 类型   | 简介           |
+| ---- | ----------------- | ------ | -------------- |
+| 1    | negative_content  | string | 辩论反方的记录 |
+| 2    | negative_username | string | 反方的用户名   |
+| 3    | nid               | string | 反方的用户id   |
+| 4    | positive_content  | string | 正方的记录     |
+| 5    | positive_username | string | 正方的记录     |
+| 6    | yid               | string | 正方的id       |
+| 7    | time              | string | 辩论的开始时间 |
+| 8    | title             | string | 辩论标题       |
 
 ### 获取所有辩论记录
 - URL: /v1/api/debate/records 
@@ -321,7 +328,13 @@
 }
 ```
 
+| 序号 | 参数      | 类型 | 简介     |
+| ---- | --------- | ---- | -------- |
+| 1    | page_size | int  | 分页大小 |
+| 2    | page_num  | int  | 分页值   |
+
 ### 选择正方
+
 - URL: /v1/api/debate/pos
 - Method: POST
 - Request Body
@@ -342,7 +355,14 @@
     }
 }
 ```
+| 序号 | 参数              | 类型   | 简介             |
+| ---- | ----------------- | ------ | ---------------- |
+| 1    | title             | string | 论题             |
+| 2    | positive_username | string | 正方用户名       |
+| 3    | begin_time        | string | 辩论场次开始时间 |
+
 ### 选择反方
+
 - URL: /v1/api/debate/neg
 - Method: POST
 - Request Body
@@ -364,7 +384,14 @@
 }
 ```
 
+| 序号 | 参数              | 类型   | 简介       |
+| ---- | ----------------- | ------ | ---------- |
+| 1    | title             | string | 论题       |
+| 2    | negative_username | string | 反方用户名 |
+| 3    | begin_time        | string | 开始时间   |
+
 ### 添加辩题
+
 - URL: /v1/api/debate/add
 - Method: POST
 - Request Body
@@ -390,6 +417,11 @@
     }
 }
 ```
+
+| 序号 | 参数       | 类型   | 简介         |
+| ---- | ---------- | ------ | ------------ |
+| 1    | title      | string | 论题         |
+| 2    | begin_time | string | 辩论开始时间 |
 
 ### 返回状态码表
 
