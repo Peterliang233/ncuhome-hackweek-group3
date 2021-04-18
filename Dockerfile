@@ -10,11 +10,11 @@ WORKDIR /build
 
 COPY . .
 
-RUN go build -o app.
+RUN go build -o app .
 
 WORKDIR /dist
 
-RUN cp /build/app.
+RUN cp /build/app .
 
 EXPOSE 80
 
