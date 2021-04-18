@@ -55,7 +55,6 @@ func GetRecords(c *gin.Context) {
 	var page model.Page
 	_ = c.ShouldBind(&page)
 	records, statusCode, code := debate2.GetRecords(page)
-	fmt.Println(records)
 	c.JSON(statusCode, gin.H{
 		"code": code,
 		"msg": map[string]interface{}{

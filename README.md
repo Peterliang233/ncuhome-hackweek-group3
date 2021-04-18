@@ -290,36 +290,37 @@
 - Method: GET
 - Request Body
 ```json
-
+{
+    "page_num": 3,
+    "page_size":2
+}
 ```
 - Response Body
 ```json
-
+{
+    "code": 200,
+    "msg": {
+        "data": [
+            {
+                "id": 5,
+                "title": "我是阿巴",
+                "positive_username": "peter",
+                "negative_username": "peter",
+                "begin_time": "2020-01-02 12:12:12"
+            },
+            {
+                "id": 6,
+                "title": "我是阿巴",
+                "positive_username": "",
+                "negative_username": "peter",
+                "begin_time": "2020-01-02 12:12:12"
+            }
+        ],
+        "detail": "成功"
+    }
+}
 ```
 
-### 获取完成的辩论场
-- URL: /v1/api/debate/records/last
-- Method: GET
-- Response Body
-```json
-
-```
-- Response Body
-```json
-
-```
-
-### 获取将来的辩论场
-- URL: /v1/api/debate/records/future
-- Method: GET
-- Response Body
-```json
-
-```
--Request Body
-```json
-
-```
 ### 选择正方
 - URL: /v1/api/debate/pos
 - Method: POST

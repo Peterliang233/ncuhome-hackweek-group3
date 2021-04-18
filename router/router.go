@@ -84,7 +84,7 @@ func InitRouter() *gin.Engine{
 		{
 			V1Debate.POST("/one", debate.OneToOneDebate)  //发送辩论记录
 			V1Debate.GET("/record/:id", debate.GetRecord) //获取单个辩论记录
-			V1Debate.GET("/records", debate.GetRecords)    //获取所有辩论记录
+			V1Debate.POST("/records", debate.GetRecords)    //获取所有辩论记录
 			//V1Debate.GET("/records/last")  //获取完成的辩论场
 			//V1Debate.GET("/records/future")  //获取将来的辩论场
 			V1Debate.POST("/pos", debate.ChosePositive)   //选择正方

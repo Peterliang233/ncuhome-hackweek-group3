@@ -114,8 +114,8 @@ func UpdateNegative(content * model.DebateContent) (StatusCode, code int){
 
 //分页展示
 func GetRecords(page model.Page) (records []model.DebateContent, statusCode, code int) {
-	if err := dao.Db.Table("debate").
-		Offset((page.PageNum-1)*page.PageSize).Limit(page.PageSize).
+	if err := dao.Db.Table("debate").Limit(page.PageSize).
+		Offset((page.PageNum-1)*page.PageSize).
 		Find(&records).Error; err != nil {
 		return nil, http.StatusInternalServerError, errmsg.Error
 	}
